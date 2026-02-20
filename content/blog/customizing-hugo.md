@@ -1,5 +1,3 @@
-```markdown
-# content/blog/customizing-hugo.md
 ---
 title: "Customizing Hugo Themes"
 date: 2026-02-19
@@ -42,4 +40,3 @@ params:
 - `hugo deploy github` for GitHub Pages deployment
 - `hugo gen chroma` for syntax highlighting
 
-```

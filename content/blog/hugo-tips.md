@@ -1,5 +1,3 @@
-```markdown
-# content/blog/hugo-tips.md
 ---
 title: "Hugo Tips and Tricks"
 date: 2026-02-19
@@ -34,5 +32,3 @@ Use Hugo's shortcodes for:
 - Add schema.org markup for articles
 - Configure robots.txt in the root
 - Use hugo s --watch for live previews
-
-```

@@ -13,3 +13,22 @@ hugo.linux
 
 # Temporary lock file while building
 /.hugo_build.lock
+
+# Emacs temporary and backup files
+*~
+\#*\#
+.#*
+*.elc
+auto-save-list
+tramp
+/eshell/history
+/eshell/lastdir
+/elpa/
+/auto/
+flycheck_*
+server/
+.projectile
+.dir-locals.el
+.org-id-locations
+*_archive
+

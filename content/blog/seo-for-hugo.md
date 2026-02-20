@@ -1,5 +1,3 @@
-```markdown
-# content/blog/seo-for-hugo.md
 ---
 title: "SEO for Hugo Websites"
 date: 2026-02-19
@@ -34,4 +32,3 @@ params:
 - `hugo gen sitemap.xml` for site mapping
 - `hugo s --watch` for live previews
 
-```
