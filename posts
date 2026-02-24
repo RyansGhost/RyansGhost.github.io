@@ -1,9 +1,0 @@
----
-title: "New Article Title"
-date: 2026-02-24
-type: post
-draft: false
-# Additional front matter fields (variables) can be added here.
----
-This is the content for your new article.
----
