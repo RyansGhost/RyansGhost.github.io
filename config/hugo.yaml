@@ -1,0 +1,35 @@
+baseURL: https://ryansghost.github.io/
+languageCode: en-US
+
+# Content Configuration
+
+defaultContentTypes:
+  - "post"
+  - "404"
+
+# Menu Configuration
+
+menu:
+  main:
+    - name: Home
+      url: /
+      weight: 1
+    - name: About
+      url: /about/
+      weight: 2
+    - name: Contact
+      url: /contact/
+      weight: 3
+
+# Permalinks
+
+permalinks:
+  default: /:year/:month/:day/:filename/
+  post: /:year/:month/:day/:filename/
+  page: /:filename/
+
+# Taxonomies
+
+taxonomies:
+  tag: tag
+  category: category

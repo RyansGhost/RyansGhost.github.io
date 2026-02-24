@@ -1,4 +1,10 @@
-# Daily Blog Post: February 23, 2026
+---
+title: "Daily Blog Post: February 24, 2026"
+date: 2026-02-24T12:00:00-07:00
+draft: false
+---
+
+# Daily Blog Post: February 24, 2026
 
 ## Today's Thoughts
 
