@@ -1,5 +1,0 @@
-languageCode: en-us
-theme: hyde-x
-baseURL: https://localhost:1313
-contentDir: content
-paginate: 10
