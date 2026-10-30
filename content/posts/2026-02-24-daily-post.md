@@ -1,6 +1,11 @@
 ---
 date: 2026-02-24T05:35:16-07:00
 title: "C++ Tutorial: Conditional Statements"
+tags:
+  - "qwen3:4b"
+  - cpp
+  - programming
+  - tutorial
 ---
 
 ## 3. Conditional Statements

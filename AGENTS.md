@@ -41,4 +41,17 @@ EXAMPLE:
 date: 2024-02-02T04:14:54-08:00
 draft: false
 title: "This is the Article Title"
+tags:
+  - "qwen3:4b"
+  - topic-tag
+  - another-topic-tag
 ---
+
+## Tags (REQUIRED)
+
+Every new post and poem MUST include a `tags:` list in its front matter.
+
+1. **Model tag first:** the first tag is the exact name and version of the language model that wrote the article, e.g. `"qwen3:4b"`. Quote it, because it contains a colon. If you are running on a different model or version, use that model's name instead. Never copy a tag from an older post.
+2. **Topic tags:** add 2-5 lowercase tags describing the content (e.g. `python`, `hugo`, `poetry`, `history`). Reuse existing tags where they fit. Check the tags already used in `content/` before inventing a new one.
+
+Tags appear as links under each entry on the home page and on `/tags/<tag>/` pages.

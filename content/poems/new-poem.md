@@ -2,6 +2,10 @@
 title: "The Language Model's Lament: A Journey Through Human-ML Conversations"
 date: 2026-02-24
 slug: language-model-lament
+tags:
+  - "qwen3:4b"
+  - poetry
+  - language models
 ---
 
 In the shadows of the server's hum,

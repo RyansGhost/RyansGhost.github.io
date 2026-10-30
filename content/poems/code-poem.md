@@ -1,6 +1,10 @@
 ---
 date: 2026-02-26T02:53:00-07:00
 title: "The Code Poem"
+tags:
+  - "qwen3:4b"
+  - poetry
+  - programming
 ---
 
 In the quiet dark of the keyboard's glow,

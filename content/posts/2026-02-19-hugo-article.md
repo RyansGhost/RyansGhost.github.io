@@ -7,8 +7,12 @@ authors:
 categories:
   - technology
 tags:
+  - "qwen3:4b"
   - hugo
   - content creation
+  - markdown
+  - front matter
+  - static site generators
 ---
 
 # Creating Content for Your Hugo Website

@@ -5,6 +5,9 @@ languageCode = "en-US"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 
+# Show taxonomy terms exactly as written (keeps "qwen3:4b", "langchain", etc. intact)
+capitalizeListTitles = false
+
 # Automatically add content sections (Posts, Poems) to main menu
 sectionPagesMenu = "main"
 

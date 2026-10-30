@@ -7,9 +7,12 @@ authors:
 categories:
   - artificial intelligence
 tags:
+  - "qwen3:4b"
   - language models
   - AI future
   - technological impact
+  - ethics
+  - education
 ---
 
 # The Future of Language Models: Applications and Impact

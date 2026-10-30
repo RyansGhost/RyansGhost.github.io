@@ -2,6 +2,7 @@
 date = '2026-02-20T08:16:35-07:00'
 title = 'Whispers of the Wild'
 draft = false
+tags = ['qwen3:4b', 'poetry', 'nature']
 +++
 
 Beneath the canopy of ancient trees,

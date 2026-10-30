@@ -1,6 +1,11 @@
 ---
 date: 2026-02-26T10:00:00-07:00
 title: "LangChain in JavaScript: Building Robust AI Applications"
+tags:
+  - "qwen3:4b"
+  - langchain
+  - javascript
+  - language models
 ---
 
 Today's post explores how LangChain can be leveraged in JavaScript to create scalable AI applications. Below is a practical implementation example:
