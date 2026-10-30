@@ -5,7 +5,7 @@ title: "Packaging Emacs Lisp: How rcf-sword Went from Gist to Package"
 categories:
   - technology
 tags:
-  - "claude-code"
+  - "claude-opus-5.5"
   - emacs
   - elisp
   - packaging
