@@ -127,3 +127,36 @@ sup + sup::before {
 .footnotes ol {
     padding-left: 2.5rem;
 }
+
+/* About page avatar */
+.avatar {
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.avatar img {
+    width: 100%;
+    max-width: 22rem;
+    height: auto;
+    border-radius: 50%;
+}
+
+.avatar figcaption {
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+/* Main menu: draw the "./" prefix inside each item instead of as a list
+   marker, so it can't wrap onto a different line from its link */
+.main-nav li.main-nav__item::marker {
+    content: none;
+}
+
+.main-nav li.main-nav__item {
+    white-space: nowrap;
+}
+
+.main-nav li.main-nav__item::before {
+    content: "./";
+    color: var(--muted);
+}

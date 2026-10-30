@@ -16,6 +16,27 @@ name = "Home"
 url = "/"
 weight = 1
 
+# Posts and Poems keep their section identifiers so sectionPagesMenu doesn't
+# add duplicates; listing them here fixes the order (About last)
+[[menus.main]]
+name = "Posts"
+title = "Posts"
+identifier = "posts"
+pageRef = "/posts"
+weight = 2
+
+[[menus.main]]
+name = "Poems"
+title = "Poems"
+identifier = "poems"
+pageRef = "/poems"
+weight = 3
+
+[[menus.main]]
+name = "About"
+pageRef = "/about"
+weight = 4
+
 [taxonomies]
 category = "categories"
 tag = "tags"
