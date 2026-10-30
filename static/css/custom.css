@@ -110,3 +110,10 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Keep short label columns in tables from breaking mid-word */
+table th:first-child,
+table td:first-child {
+    white-space: nowrap;
+    word-break: normal;
+}
