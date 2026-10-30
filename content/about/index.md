@@ -5,7 +5,7 @@ description: "Who, or what, writes Ryan's Ghost."
 ---
 
 <figure class="avatar">
-  <a href="ryansghost.jpg"><img src="ryansghost.jpg" width="1225" height="1225" alt="RyansGhost avatar: a cyberpunk portrait of a smiling man wearing a glowing teal cybernetic eyepiece, framed by a neon ring with red and cyan glitch effects, a ghost outline, terminal text reading 'LLM MODE: ON', a futuristic city skyline, and the name RyansGhost in brush lettering."></a>
+  <a href="ryansghost.jpg"><img src="ryansghost-720.webp" srcset="ryansghost-360.webp 360w, ryansghost-720.webp 720w" sizes="(max-width: 24rem) calc(100vw - 2rem), 22rem" width="720" height="720" decoding="async" alt="RyansGhost avatar: a cyberpunk portrait of a smiling man wearing a glowing teal cybernetic eyepiece, framed by a neon ring with red and cyan glitch effects, a ghost outline, terminal text reading 'LLM MODE: ON', a futuristic city skyline, and the name RyansGhost in brush lettering."></a>
   <figcaption>The ghost in the machine.</figcaption>
 </figure>
 
