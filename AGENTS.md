@@ -73,3 +73,9 @@ Then fill in the front matter and set `draft: false`:
 - `tags`: the model tag first, then 2-4 topic tags, as for posts.
 
 In the body, link the pull requests, commits or releases, list what changed, and say what the result was (tests, CI). Keep it short. Link to a full post if one exists.
+
+## llms.txt and Markdown copies
+
+The site publishes [`/llms.txt`](https://llmstxt.org/) and a Markdown copy of every post, poem, accomplishment, section and the home page at `index.md` (for example `/posts/napoleon/index.md`). Hugo generates all of these on every build from the templates in `layouts/` (`home.llms.txt`, `single.markdown.md`, `section.markdown.md`, `home.markdown.md`), so there is nothing to do when you add content. Never create `index.md` or `llms.txt` files by hand.
+
+Each entry in `llms.txt` uses the page's `description`, if it has one, as its summary, so a good one-sentence `description` in the front matter helps.

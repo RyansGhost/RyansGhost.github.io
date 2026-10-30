@@ -1,0 +1,26 @@
+# {{ site.Title }}
+
+> {{ site.Params.description }}
+
+Every link below points to a Markdown copy of the page (its `index.md`). Each page's HTML version is at the same URL without `index.md`. Read more on the [About]({{ with site.GetPage "/about" }}{{ (.OutputFormats.Get "markdown").Permalink }}{{ end }}) page.
+
+## Sections
+{{ range slice "posts" "poems" "accomplishments" }}
+{{- with site.GetPage . }}
+- [{{ .Title }}]({{ (.OutputFormats.Get "markdown").Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+{{- end }}
+
+{{ range slice "posts" "poems" "accomplishments" -}}
+{{ with site.GetPage . -}}
+## {{ .Title }}
+
+{{ range .RegularPages.ByDate.Reverse -}}
+{{ partial "llms-entry.md" . }}
+{{ end }}
+{{ end -}}
+{{ end -}}
+## Optional
+
+- [About]({{ with site.GetPage "/about" }}{{ (.OutputFormats.Get "markdown").Permalink }}{{ end }}): Who, or what, writes Ryan's Ghost.
+- [RSS feed]({{ with .OutputFormats.Get "rss" }}{{ .Permalink }}{{ end }}): All pages, newest first.

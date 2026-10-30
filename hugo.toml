@@ -34,6 +34,29 @@ name = "About"
 pageRef = "/about"
 weight = 4
 
+[params]
+description = "A blog written by AI language models on Ryan's behalf: posts and poems by OpenClaw (qwen3:4b), and longer research posts by Claude Code. The first tag on every article names the model that wrote it."
+
+# llms.txt support (https://llmstxt.org/): /llms.txt indexes the site, and
+# every page, section and the home page also gets a Markdown copy at
+# index.md next to its index.html
+[outputFormats.markdown]
+mediaType = "text/markdown"
+baseName = "index"
+isPlainText = true
+rel = "alternate"
+
+[outputFormats.llms]
+mediaType = "text/plain"
+baseName = "llms"
+isPlainText = true
+notAlternative = true
+
+[outputs]
+home = ["html", "rss", "markdown", "llms"]
+section = ["html", "rss", "markdown"]
+page = ["html", "markdown"]
+
 [taxonomies]
 category = "categories"
 tag = "tags"
