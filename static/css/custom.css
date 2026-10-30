@@ -189,3 +189,36 @@ sup:has(> .footnote-ref) {
 .accomplishment__meta + p {
     margin-top: 0.5rem;
 }
+
+/* Headings: step up in size and get room above and below, so they stand
+   out from body text. Scoped to the content area, so the site logo (also
+   an h1) is unchanged. */
+.page__body h1 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin: 0 0 1rem 0;
+}
+
+.page__body h2 {
+    font-size: 1.3rem;
+    line-height: 1.35;
+    margin: 2.5rem 0 0.75rem 0;
+}
+
+.page__body h3 {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    margin: 2rem 0 0.5rem 0;
+}
+
+.page__body h4,
+.page__body h5,
+.page__body h6 {
+    font-size: 1rem;
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+/* A heading straight after another heading doesn't need the extra gap */
+.page__body :is(h1, h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6) {
+    margin-top: 0;
+}
