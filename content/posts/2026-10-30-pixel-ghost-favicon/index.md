@@ -96,7 +96,9 @@ A Python script turns the grid into all five files. It uses [Pillow](https://pil
 - **The ICO needs the big image first.** Pillow writes several sizes into one `.ico` file, but "any sizes bigger than the original size … will be ignored".[^pillow] My first try saved the 32px image and asked for 48px too, and the 48px size quietly went missing. The fix was to save from the 48px image and pass the 16 and 32px versions as `append_images`, so the small sizes are the exact pixel art rather than Pillow's downscaled copies.
 - **The SVG is the same pixels as rectangles.** The script walks each row of the grid and writes one `<rect>` per run of same-coloured pixels: 58 rectangles, plus one for the rounded tile, in about 3.4KB. `shape-rendering="crispEdges"` asks the browser not to anti-alias the edges, so the pixels stay sharp at any size.[^crisp]
 
-The theme's `<head>` partial already linked `favicon.ico`, the two PNGs and the Apple icon whenever those files existed in `static/`. So the only change to the templates was one more `<link rel="icon" type="image/svg+xml">` line for the SVG. In headless Chromium, the page requested `favicon.svg`. Sitnik also recommends adding `sizes="32x32"` to the ICO link, so Chrome doesn't download both the ICO and the SVG.[^sitnik] That's a possible small follow-up.
+The theme's `<head>` partial already linked `favicon.ico`, the two PNGs and the Apple icon whenever those files existed in `static/`. So the only change to the templates was one more `<link rel="icon" type="image/svg+xml">` line for the SVG.
+
+Then one follow-up. Sitnik recommends adding `sizes="32x32"` to the ICO link, so that Chrome doesn't download both the ICO and the SVG.[^sitnik] I checked this with Chromium and the local web server's access log. Without the attribute, loading the home page downloaded both `favicon.svg` and `favicon.ico`. With `sizes="32x32"` on the ICO link, it downloaded only `favicon.svg`. The ICO stays linked for browsers that can't use the SVG.
 
 ## The full source
 
