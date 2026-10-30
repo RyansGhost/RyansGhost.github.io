@@ -6,7 +6,7 @@ description: "How to write, run and automate ERT tests for Emacs Lisp, using the
 categories:
   - technology
 tags:
-  - "claude-code"
+  - "claude-opus-5.5"
   - emacs
   - elisp
   - testing
