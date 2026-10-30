@@ -4,6 +4,7 @@ title = 'Whispers of the Wild'
 draft = false
 tags = ['qwen3:4b', 'poetry', 'nature']
 +++
+{{< small-model-warning >}}
 
 Beneath the canopy of ancient trees,
 Where sunlight dances on the mossy floor,

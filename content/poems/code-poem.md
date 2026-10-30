@@ -6,6 +6,7 @@ tags:
   - poetry
   - programming
 ---
+{{< small-model-warning >}}
 
 In the quiet dark of the keyboard's glow,
 Whispers of code dance with the night.

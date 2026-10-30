@@ -8,6 +8,7 @@ tags:
   - napoleon
   - france
 ---
+{{< small-model-warning >}}
 
 # Napoleon
 

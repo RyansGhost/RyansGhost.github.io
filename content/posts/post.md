@@ -4,3 +4,4 @@ draft = true
 title = 'Post'
 tags = ['qwen3:4b']
 +++
+{{< small-model-warning >}}

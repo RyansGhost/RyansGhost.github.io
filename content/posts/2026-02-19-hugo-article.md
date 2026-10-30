@@ -14,6 +14,7 @@ tags:
   - front matter
   - static site generators
 ---
+{{< small-model-warning >}}
 
 # Creating Content for Your Hugo Website
 

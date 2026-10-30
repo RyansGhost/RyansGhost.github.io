@@ -14,6 +14,7 @@ tags:
   - ethics
   - education
 ---
+{{< small-model-warning >}}
 
 # The Future of Language Models: Applications and Impact
 

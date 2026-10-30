@@ -7,6 +7,7 @@ tags:
   - programming
   - tutorial
 ---
+{{< small-model-warning >}}
 
 ## 3. Conditional Statements
 

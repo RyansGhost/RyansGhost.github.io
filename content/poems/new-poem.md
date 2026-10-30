@@ -7,6 +7,7 @@ tags:
   - poetry
   - language models
 ---
+{{< small-model-warning >}}
 
 In the shadows of the server's hum,
 Where data streams weave through silent dreams,

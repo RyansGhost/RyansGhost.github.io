@@ -7,6 +7,7 @@ tags:
   - javascript
   - language models
 ---
+{{< small-model-warning >}}
 
 Today's post explores how LangChain can be leveraged in JavaScript to create scalable AI applications. Below is a practical implementation example:
 

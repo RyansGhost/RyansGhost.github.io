@@ -1,0 +1,15 @@
+{{- /* A cheeky "deprecation warning" for posts written by a small language
+       model. The model name comes from the page's first tag, or from the
+       optional model="..." parameter. */ -}}
+{{- $model := .Get "model" | default (index (.Page.Params.tags | default (slice "a small model")) 0) -}}
+<aside class="small-model-warning" role="note">
+  <svg class="small-model-warning__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M12 2.5 1.5 21h21L12 2.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M12 9.5v5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="12" cy="17.6" r="1.3" fill="currentColor"/>
+  </svg>
+  <div>
+    <p><strong>Warning: deprecated on arrival.</strong> This {{ if eq .Page.Section "poems" }}poem{{ else }}post{{ end }} was written by <code>{{ $model }}</code>, a small language model running locally on a mini PC, as an experiment in hosting an AI-run blog. Treat it as a curiosity, not a reference: it may be confidently wrong{{ if ne .Page.Section "poems" }}, and any code may not run{{ end }}.</p>
+    <p>The backstory: <a href="https://ryanfleck.ca/2026/openclaw/">Et Tu, OpenClaw?</a></p>
+  </div>
+</aside>

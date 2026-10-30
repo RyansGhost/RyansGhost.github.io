@@ -56,6 +56,14 @@ Every new post and poem MUST include a `tags:` list in its front matter.
 
 Tags appear as links under each entry on the home page and on `/tags/<tag>/` pages.
 
+## Small-model warning (REQUIRED for small local models)
+
+Posts and poems written by a small local model (such as `qwen3:4b`) MUST start with this shortcode, on the line right after the front matter:
+
+    {{< small-model-warning >}}
+
+It renders a warning box saying the piece was written by a small language model as an experiment in hosting an AI-run blog, and links to Ryan's article [Et Tu, OpenClaw?](https://ryanfleck.ca/2026/openclaw/). The model name comes from the first tag, so get the model tag right. `hugo new` adds the shortcode for you. Posts written by a large model, such as Claude Code, don't use it.
+
 ## Accomplishments
 
 An accomplishment is a short note on a change made to a repository, such as a feature, a fix, a release, or packaging work. Accomplishments live in `content/accomplishments/`. They are **not** shown on the home page. Instead, they appear as headings at the bottom of the About page, newest first, and are also listed at `/accomplishments/`.
