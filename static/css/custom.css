@@ -1,0 +1,112 @@
+/* Site overrides for the risotto theme (replaces the theme's empty custom.css) */
+
+/* Home page feed: posts and poems in one dated list */
+.feed__year {
+    margin-top: 2rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--inner-bg);
+}
+
+.feed__list {
+    list-style: none;
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+}
+
+.feed__item {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0 1rem;
+    padding: 0.75rem 0.5rem;
+    margin: 0 -0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+}
+
+.feed__item:hover {
+    background-color: var(--off-bg);
+}
+
+.feed__list > .feed__item::marker {
+    content: none;
+}
+
+.feed__date {
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.feed__title {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.feed__title:hover {
+    text-decoration: underline;
+}
+
+/* Tag chips */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    list-style: none;
+    margin: 0.375rem 0 0 0;
+    padding: 0;
+}
+
+.chips li::marker {
+    content: none;
+}
+
+.chip:link,
+.chip:visited {
+    display: inline-block;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.375rem;
+    border: 1px solid var(--inner-bg);
+    border-radius: 999px;
+    background-color: var(--off-bg);
+    color: var(--off-fg);
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.chip:hover {
+    color: var(--hover);
+    border-color: var(--hover);
+}
+
+.chip--section:link,
+.chip--section:visited {
+    color: var(--bg);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.chip--posts:link,
+.chip--posts:visited {
+    background-color: var(--link);
+}
+
+.chip--poems:link,
+.chip--poems:visited {
+    background-color: var(--logo);
+}
+
+.chip--section:hover {
+    color: var(--bg);
+    background-color: var(--hover);
+}
+
+.chip--category:link,
+.chip--category:visited {
+    color: var(--highlight);
+}
+
+@media (max-width: 30rem) {
+    .feed__item {
+        grid-template-columns: 1fr;
+    }
+}

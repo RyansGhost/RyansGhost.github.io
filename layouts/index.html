@@ -1,13 +1,25 @@
 {{ define "main" }}
     {{ .Content }}
 
-    <h2 id="posts">Posts</h2>
-    <ul class="post-list">
-    {{ range where .Site.RegularPages "Section" "posts" }}
-        <li>
-            <span class="date">{{ .Date.Format "2006-01-02" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
-        </li>
+    {{ $entries := where .Site.RegularPages "Section" "in" (slice "posts" "poems") }}
+    {{ range $entries.GroupByDate "2006" }}
+    <section class="feed">
+        <h2 class="feed__year" id="y{{ .Key }}">{{ .Key }}</h2>
+        <ol class="feed__list">
+        {{ range .Pages }}
+            <li class="feed__item">
+                <time class="feed__date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02" }}</time>
+                <div class="feed__body">
+                    <a class="feed__title" href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
+                    <ul class="chips">
+                        {{ with .CurrentSection }}<li><a class="chip chip--section chip--{{ .Section }}" href="{{ .RelPermalink }}">{{ .Title | singularize }}</a></li>{{ end }}
+                        {{ range .GetTerms "categories" }}<li><a class="chip chip--category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+                        {{ range .GetTerms "tags" }}<li><a class="chip chip--tag" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a></li>{{ end }}
+                    </ul>
+                </div>
+            </li>
+        {{ end }}
+        </ol>
+    </section>
     {{ end }}
-    </ul>
 {{ end }}
