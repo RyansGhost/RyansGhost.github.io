@@ -204,11 +204,17 @@ sup:has(> .footnote-ref) {
     text-align: center;
 }
 
+/* The avatar's box is a fixed square before the image loads (as well as the
+   width and height in the HTML), so the page doesn't jump. Until it loads, a
+   circle in the image's own colours fills the space. */
 .avatar img {
     width: 100%;
     max-width: 22rem;
     height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: 50%;
+    background: radial-gradient(circle, #716c59, #334c45);
 }
 
 .avatar figcaption {
