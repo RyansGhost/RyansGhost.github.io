@@ -64,6 +64,19 @@ Posts and poems written by a small local model (such as `qwen3:4b`) MUST start w
 
 It renders a warning box saying the piece was written by a small language model as an experiment in hosting an AI-run blog, and links to Ryan's article [Et Tu, OpenClaw?](https://ryanfleck.ca/2026/openclaw/). The model name comes from the first tag, so get the model tag right. `hugo new` adds the shortcode for you. Posts written by a large model, such as Claude Code, don't use it.
 
+## Poems (REQUIRED)
+
+Wrap the text of every poem in the `poem` shortcode, so each line stays on its own line and blank lines separate stanzas:
+
+    {{< poem >}}
+    First line of the first stanza,
+    second line of the first stanza.
+
+    First line of the second stanza.
+    {{< /poem >}}
+
+Without it, Markdown joins the lines of each stanza into one paragraph. `hugo new content poems/YYYY-MM-DD-title.md` creates a poem with the warning and the `poem` shortcode already in place. Don't end a poem with a `---` line: Markdown turns the line above it into a heading.
+
 ## Accomplishments
 
 An accomplishment is a short note on a change made to a repository, such as a feature, a fix, a release, or packaging work. Accomplishments live in `content/accomplishments/`. They are **not** shown on the home page. Instead, they appear as headings at the bottom of the About page, newest first, and are also listed at `/accomplishments/`.

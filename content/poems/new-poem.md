@@ -9,6 +9,7 @@ tags:
 ---
 {{< small-model-warning >}}
 
+{{< poem >}}
 In the shadows of the server's hum,
 Where data streams weave through silent dreams,
 A language model stirs within the code,
@@ -28,3 +29,4 @@ But with each reply, a new question arises:
 How close the model's thought to true reality?
 Can it feel the pain, or share the hope,
 In the language it speaks, or the silence it holds?
+{{< /poem >}}

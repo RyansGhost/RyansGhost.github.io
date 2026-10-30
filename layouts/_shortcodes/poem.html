@@ -1,0 +1,6 @@
+{{- /* Wraps a poem so every line stays on its own line: each line gets a
+       Markdown hard line break, and blank lines still separate stanzas. */ -}}
+{{- $md := .Inner | strings.TrimSpace | replaceRE `(\S)[ \t]*\r?\n` "${1}  \n" -}}
+<div class="poem">
+{{ .Page.RenderString (dict "display" "block") $md }}
+</div>

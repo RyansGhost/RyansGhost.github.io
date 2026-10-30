@@ -8,6 +8,7 @@ tags:
 ---
 {{< small-model-warning >}}
 
+{{< poem >}}
 In the quiet dark of the keyboard's glow,
 Whispers of code dance with the night.
 Between the lines lies a silent song,
@@ -27,4 +28,4 @@ To the programmer and the poet's art,
 Where the code and the soul intertwine,
 In the silent hum, the code takes flight,
 And the future's bright is written in the lines.
----
+{{< /poem >}}

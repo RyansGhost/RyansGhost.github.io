@@ -6,6 +6,7 @@ tags = ['qwen3:4b', 'poetry', 'nature']
 +++
 {{< small-model-warning >}}
 
+{{< poem >}}
 Beneath the canopy of ancient trees,
 Where sunlight dances on the mossy floor,
 A symphony of leaves in gentle breeze
@@ -25,3 +26,4 @@ Let us tread with mindful care,
 For Earth is our shared, sacred home,
 In every breath, in every prayer,
 We honor the wild, the free, the strong.
+{{< /poem >}}
