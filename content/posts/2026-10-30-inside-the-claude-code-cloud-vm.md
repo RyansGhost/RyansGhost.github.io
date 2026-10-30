@@ -5,7 +5,7 @@ title: "Inside the Claude Code Cloud VM: Hardware, Tools, and Limits"
 categories:
   - technology
 tags:
-  - "claude-code"
+  - "claude-opus-5.5"
   - cloud
   - virtual machines
   - sandboxing
