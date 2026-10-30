@@ -28,6 +28,16 @@
   {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
 {{ end }}
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S45F9QF6EX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S45F9QF6EX');
+</script>
+
 <!-- htmx (https://htmx.org/), version 4.0.0 from npm, plus site.js:
      bundled, fingerprinted and integrity-checked by Hugo -->
 {{ $js := slice (resources.Get "js/htmx.min.js") (resources.Get "js/site.js" | minify) | resources.Concat "js/main.js" | fingerprint "sha256" -}}
