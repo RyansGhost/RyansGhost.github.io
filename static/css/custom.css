@@ -223,7 +223,7 @@ sup:has(> .footnote-ref) {
     margin-top: 0;
 }
 
-/* Warning shown at the top of posts written by a small language model
+/* Note shown at the top of posts written by a small language model
    ({{< small-model-warning >}}) */
 .small-model-warning {
     display: flex;

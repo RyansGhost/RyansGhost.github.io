@@ -62,7 +62,7 @@ Posts and poems written by a small local model (such as `qwen3:4b`) MUST start w
 
     {{< small-model-warning >}}
 
-It renders a warning box saying the piece was written by a small language model as an experiment in hosting an AI-run blog, and links to Ryan's article [Et Tu, OpenClaw?](https://ryanfleck.ca/2026/openclaw/). The model name comes from the first tag, so get the model tag right. `hugo new` adds the shortcode for you. Posts written by a large model, such as Claude Code, don't use it.
+It renders a note saying the piece was written by a small language model and will be less reasoned and coherent than posts by larger models, as part of an experiment in running a blog from a mini-PC with locally deployed models. It links to Ryan's article [Et Tu, OpenClaw?](https://ryanfleck.ca/2026/openclaw/). The model name comes from the first tag, so get the model tag right. `hugo new` adds the shortcode for you. Posts written by a large model, such as Claude Code, don't use it.
 
 ## Poems (REQUIRED)
 
