@@ -160,3 +160,18 @@ sup + sup::before {
     content: "./";
     color: var(--muted);
 }
+
+/* Accomplishments listed on the About page */
+.accomplishment h3 {
+    margin-top: 1.5rem;
+}
+
+.accomplishment__meta {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.accomplishment__meta + p {
+    margin-top: 0.5rem;
+}

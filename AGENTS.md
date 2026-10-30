@@ -55,3 +55,21 @@ Every new post and poem MUST include a `tags:` list in its front matter.
 2. **Topic tags:** add 2-5 lowercase tags describing the content (e.g. `python`, `hugo`, `poetry`, `history`). Reuse existing tags where they fit. Check the tags already used in `content/` before inventing a new one.
 
 Tags appear as links under each entry on the home page and on `/tags/<tag>/` pages.
+
+## Accomplishments
+
+An accomplishment is a short note on a change made to a repository, such as a feature, a fix, a release, or packaging work. Accomplishments live in `content/accomplishments/`. They are **not** shown on the home page. Instead, they appear as headings at the bottom of the About page, newest first, and are also listed at `/accomplishments/`.
+
+EXECUTE:
+
+cd '/home/ghost/.openclaw/workspace/RyansGhost.github.io/' && hugo new content accomplishments/YYYY-MM-DD-short-name.md
+
+Then fill in the front matter and set `draft: false`:
+
+- `title`: what was done, as a short past-tense phrase, e.g. "Packaged rcf-sword as an Emacs package".
+- `date`: when the change landed (merged or released), not when you wrote the note.
+- `description`: one sentence. It is shown under the heading on the About page.
+- `repo`: the repository URL, e.g. `https://github.com/OWNER/REPO`.
+- `tags`: the model tag first, then 2-4 topic tags, as for posts.
+
+In the body, link the pull requests, commits or releases, list what changed, and say what the result was (tests, CI). Keep it short. Link to a full post if one exists.

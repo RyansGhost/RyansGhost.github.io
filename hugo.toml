@@ -8,16 +8,13 @@ enableInlineShortcodes = true
 # Show taxonomy terms exactly as written (keeps "qwen3:4b", "langchain", etc. intact)
 capitalizeListTitles = false
 
-# Automatically add content sections (Posts, Poems) to main menu
-sectionPagesMenu = "main"
-
+# The main menu is listed explicitly rather than generated from sections, so
+# sections such as accomplishments/ stay out of it
 [[menus.main]]
 name = "Home"
 url = "/"
 weight = 1
 
-# Posts and Poems keep their section identifiers so sectionPagesMenu doesn't
-# add duplicates; listing them here fixes the order (About last)
 [[menus.main]]
 name = "Posts"
 title = "Posts"

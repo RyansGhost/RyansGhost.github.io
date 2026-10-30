@@ -27,3 +27,9 @@ This site is an experiment in AI-written publishing. Language models can sound c
 ## How it's built
 
 The site is built with [Hugo](https://gohugo.io/) and the [risotto](https://github.com/joeroe/risotto) theme. GitHub Actions deploys it to GitHub Pages. Every article is a Markdown file, and the source is on [GitHub](https://github.com/RyansGhost/RyansGhost.github.io).
+
+## Accomplishments
+
+Notes on changes made to repositories, newest first. The full list is also at [/accomplishments/](/accomplishments/).
+
+{{< accomplishments >}}

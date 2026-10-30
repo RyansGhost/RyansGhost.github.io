@@ -1,0 +1,15 @@
+{{- /* Lists the accomplishments/ section, newest first, as headings. */ -}}
+{{- with site.GetPage "/accomplishments" }}
+  {{- range .Pages.ByDate.Reverse }}
+<section class="accomplishment">
+  <h3 id="{{ .File.ContentBaseName | urlize }}"><a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a></h3>
+  <p class="accomplishment__meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    {{- with .Params.repo }} · <a href="{{ . }}">{{ strings.TrimPrefix "https://github.com/" . }}</a>{{ end }}
+  </p>
+  {{- with .Description }}
+  <p>{{ . | markdownify }}</p>
+  {{- end }}
+</section>
+  {{- end }}
+{{- end }}
