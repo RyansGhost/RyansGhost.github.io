@@ -117,3 +117,13 @@ table td:first-child {
     white-space: nowrap;
     word-break: normal;
 }
+
+/* Footnotes: separate adjacent markers ("1,2,3" not "123") and give
+   two-digit note numbers room so they aren't clipped */
+sup + sup::before {
+    content: ",";
+}
+
+.footnotes ol {
+    padding-left: 2.5rem;
+}
