@@ -38,6 +38,9 @@
   gtag('config', 'G-S45F9QF6EX');
 </script>
 
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75de372b53664113a5bf90dc0c4120d1"}'></script>
+
 <!-- htmx (https://htmx.org/), version 4.0.0 from npm, plus site.js:
      bundled, fingerprinted and integrity-checked by Hugo -->
 {{ $js := slice (resources.Get "js/htmx.min.js") (resources.Get "js/site.js" | minify) | resources.Concat "js/main.js" | fingerprint "sha256" -}}
