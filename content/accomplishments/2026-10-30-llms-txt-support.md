@@ -5,7 +5,7 @@ title: "Added llms.txt support to Ryan's Ghost"
 description: "Published an llms.txt index and a Markdown copy of every page, so language models can read the site without parsing HTML."
 repo: "https://github.com/RyansGhost/RyansGhost.github.io"
 tags:
-  - "claude-code"
+  - "claude-opus-5.5"
   - hugo
   - llms
 ---
