@@ -1,5 +1,5 @@
-"""Draw the site's favicon, a 16x16 pixel ghost in the theme's green and
-blue, and write every favicon file into static/.
+"""Draw the site's favicon, a scowling 16x16 pixel ghost in the theme's
+green and blue, and write every favicon file into static/.
 
 Run from the repository root:  python3 scripts/make-favicon.py
 Needs Pillow. Edit GHOST or COLOURS below, then run it again.
@@ -10,29 +10,29 @@ from PIL import Image
 GHOST = """\
 ................
 ......GGGG......
-....GTGGGGGG....
-...GTGGGGGGGG...
+....GGGGGGGG....
+...GGGGGGGGGG...
 ..GGGGGGGGGGGG..
-..GGWWGGGGWWGG..
-..GGWKGGGGWKGG..
-..GGWKGGGGWKGG..
-..GGGGGGGGGGGG..
-..BGBGBGBGBGBG..
-..GBGBGBGBGBGB..
+..GKKGGGGGGKKG..
+..GGKKKGGKKKGG..
+..GGKAKGGKAKGG..
+..GGGKKGGKKGGG..
+..GKWKWKKWKWKG..
+..BKKKKKKKKKKB..
+..BBBKWKKWKBBB..
 ..BBBBBBBBBBBB..
-..BBBBBBBBBBBB..
-..BBB.BBBB.BBB..
-..BB...BB...BB..
+..BB.BBB.BB.BB..
+..B...B...B..B..
 ................"""
 
 # Colours from risotto's base16-dark palette, the one the site uses
 COLOURS = {
     ".": "#181818",  # --bg
     "G": "#a1b56c",  # --logo (green)
-    "T": "#86c1b9",  # --hover (teal shine)
     "B": "#7cafc2",  # --link (blue)
-    "W": "#d8d8d8",  # --fg (eye whites)
-    "K": "#181818",  # pupils
+    "K": "#181818",  # eye sockets, brows and mouth
+    "A": "#f7ca88",  # --highlight (glowing eyes)
+    "W": "#d8d8d8",  # --fg (fangs)
 }
 
 ROWS = GHOST.splitlines()
