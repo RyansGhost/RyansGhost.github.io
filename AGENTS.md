@@ -103,9 +103,10 @@ Each entry in `llms.txt` uses the page's `description`, if it has one, as its su
 
 ## htmx (fast page navigation)
 
-The site uses [htmx](https://htmx.org/) 2.0.11 with `hx-boost="true"` on `<html>` (`layouts/_default/baseof.html`). Clicking a link to another page on the site fetches just that page's HTML and swaps in the new page body, so stylesheets and scripts aren't reloaded. Links to other sites, `#fragment` links, Ctrl/Cmd-clicks and `target="_blank"` links work as usual.
+The site uses [htmx](https://htmx.org/) 4.0.0 with `hx-boost:inherited="true"` on `<html>` (`layouts/_default/baseof.html`). Clicking a link to another page on the site fetches just that page's HTML and swaps in the new page body, so stylesheets and scripts aren't reloaded. The new page opens scrolled to the top, or at the `#fragment` in the link. Links to other sites, `#fragment` links within a page, Ctrl/Cmd-clicks and `target="_blank"` links work as usual.
 
 - **Links to files that aren't HTML pages** (`.md`, `.txt`, `.xml`, `.json`, images, `.pdf`) load normally. `assets/js/site.js` handles this. If you link to a new kind of file, add its extension there.
-- **To opt a link or section out of boosting**, add `hx-boost="false"` to it.
+- **To opt a link out of boosting**, add `hx-boost="false"` to it. To opt out a whole section, add `hx-boost:inherited="false"` to the element around it. In htmx 4, attributes only pass down to child elements when they have the `:inherited` suffix.
+- **Scrolling to the top** after a boosted page load relies on `<body>` starting at the very top of the page. The `body` rule at the top of `static/css/custom.css` makes sure it does. Keep it if you change the layout.
 - **To update htmx**, download the new `htmx.min.js` from the `htmx.org` package on npm, check it against npm's published integrity hash, replace `assets/js/htmx.min.js`, and update the version in `layouts/_partials/head.html` and here. Hugo bundles it with `site.js` and fingerprints the result with an integrity hash on every build.
 

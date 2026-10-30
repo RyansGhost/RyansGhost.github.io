@@ -28,7 +28,7 @@
   {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
 {{ end }}
 
-<!-- htmx (https://htmx.org/), version 2.0.11 from npm, plus site.js:
+<!-- htmx (https://htmx.org/), version 4.0.0 from npm, plus site.js:
      bundled, fingerprinted and integrity-checked by Hugo -->
 {{ $js := slice (resources.Get "js/htmx.min.js") (resources.Get "js/site.js" | minify) | resources.Concat "js/main.js" | fingerprint "sha256" -}}
 <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>

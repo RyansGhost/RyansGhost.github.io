@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-{{- /* Copied from risotto; the only change is hx-boost, which makes htmx
-     load same-site links without a full page reload (see assets/js/site.js). */ -}}
-<html lang="{{- site.Language.Lang -}}" hx-boost="true">
+{{- /* Copied from risotto; the only change is hx-boost:inherited, which makes
+     htmx load same-site links without a full page reload (see assets/js/site.js). */ -}}
+<html lang="{{- site.Language.Lang -}}" hx-boost:inherited="true">
 
     <head>
         {{- partial "head.html" . -}}

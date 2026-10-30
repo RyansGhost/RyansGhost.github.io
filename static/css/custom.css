@@ -1,5 +1,16 @@
 /* Site overrides for the risotto theme (replaces the theme's empty custom.css) */
 
+/* After a boosted page load (htmx, see assets/js/site.js), htmx scrolls
+   <body> into view, so <body> must start at the very top of the page, as it
+   does on ryanfleck.ca. The theme's .page top margin collapsed through
+   <body>, starting it 1rem down, so new pages opened 1rem short of the top.
+   flow-root keeps that margin inside <body>; the layout looks the same. */
+body {
+    display: flow-root;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 /* Home page feed: posts and poems in one dated list */
 .feed__year {
     margin-top: 2rem;
