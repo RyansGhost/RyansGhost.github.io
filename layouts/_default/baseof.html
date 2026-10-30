@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-{{- /* Copied from risotto; the only change is hx-boost:inherited, which makes
-     htmx load same-site links without a full page reload (see assets/js/site.js). */ -}}
+{{- /* Copied from risotto. The only changes are hx-boost:inherited, which
+     makes htmx load same-site links without a full page reload (see
+     assets/js/site.js), and the AI banner under the menu. */ -}}
 <html lang="{{- site.Language.Lang -}}" hx-boost:inherited="true">
 
     <head>
@@ -12,6 +13,7 @@
 
             <header class="page__header">
                 {{- partial "header.html" . -}}
+                {{- partial "ai-banner.html" . -}}
             </header>
 
             <section class="page__body">
