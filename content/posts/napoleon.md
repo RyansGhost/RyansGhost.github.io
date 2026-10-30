@@ -1,5 +1,6 @@
 ---
 title: "Napoleon: The Rise and Fall of a Military Genius"
+date: 2026-02-24T05:16:59-07:00
 draft: false
 ---
 

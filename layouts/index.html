@@ -1,0 +1,13 @@
+{{ define "main" }}
+    {{ .Content }}
+
+    <h2 id="posts">Posts</h2>
+    <ul class="post-list">
+    {{ range where .Site.RegularPages "Section" "posts" }}
+        <li>
+            <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+            <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
+        </li>
+    {{ end }}
+    </ul>
+{{ end }}

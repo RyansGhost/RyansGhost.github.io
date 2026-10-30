@@ -1,3 +1,8 @@
+---
+date: 2026-02-24T05:35:16-07:00
+title: "C++ Tutorial: Conditional Statements"
+---
+
 ## 3. Conditional Statements
 
 In C++, conditional statements allow programs to make decisions based on certain conditions. The most common structure is the `if` statement.

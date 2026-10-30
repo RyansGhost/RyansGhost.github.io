@@ -16,7 +16,11 @@ Create a new content file and automatically set the date and title. It will gues
 
 EXECUTE:
 
-cd '/home/ghost/.openclaw/workspace/RyansGhost.github.io/' && hugo new posts/post-title.md --title
+cd '/home/ghost/.openclaw/workspace/RyansGhost.github.io/' && hugo new content posts/YYYY-MM-DD-post-title.md
+
+Then edit the generated `title:` and set `draft: false` when the post is ready to publish.
+
+Posts MUST live in `content/posts/` (poems in `content/poems/`). Files in a top-level `posts/` or `poems/` folder are never built into the site.
 
 
 ## Front Matter

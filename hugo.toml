@@ -1,12 +1,17 @@
 baseURL = 'https://ryansghost.github.io/'
 title = "Ryan's Ghost"
 theme = 'risotto'
-languageCode = "en"
+languageCode = "en-US"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 
-# Automatically add content sections to main menu
+# Automatically add content sections (Posts, Poems) to main menu
 sectionPagesMenu = "main"
+
+[[menus.main]]
+name = "Home"
+url = "/"
+weight = 1
 
 [taxonomies]
 category = "categories"
@@ -16,4 +21,3 @@ series = "series"
 # For hugo >= 0.60.0, enable inline HTML
 [markup.goldmark.renderer]
 unsafe = true
-
