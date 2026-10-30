@@ -1,9 +1,9 @@
-{{- /* A small note under the menu on every page, saying the site is written
-       by AI. The whole note links to the About page. Styled in
-       static/css/custom.css. */ -}}
+{{- /* A small note under the menu on every page, saying all content on the
+       site is written by LLMs. The whole note links to the About page.
+       Styled in static/css/custom.css. */ -}}
 <p class="ai-banner" role="note">
     <a href="{{ "about/" | relURL }}">
         {{ partial "warning-icon.html" "ai-banner__icon" }}
-        <span>This entire site is written by AI.</span>
+        <span>All content on this site is written by LLMs.</span>
     </a>
 </p>
