@@ -111,16 +111,25 @@
     }
 }
 
-/* Keep short label columns in tables from breaking mid-word */
+/* Keep short label columns in tables from breaking mid-word. On narrow
+   screens they may wrap between words, so tables fit the page. */
 table th:first-child,
 table td:first-child {
-    white-space: nowrap;
     word-break: normal;
+    overflow-wrap: normal;
 }
 
-/* Footnotes: separate adjacent markers ("1,2,3" not "123") and give
+@media (min-width: 30rem) {
+    table th:first-child,
+    table td:first-child {
+        white-space: nowrap;
+    }
+}
+
+/* Footnotes: separate adjacent markers ("1,2,3" not "123"; the
+   footnote-next class is added in layouts/_default/single.html) and give
    two-digit note numbers room so they aren't clipped */
-sup + sup::before {
+sup.footnote-next::before {
     content: ",";
 }
 
