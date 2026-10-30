@@ -5,7 +5,7 @@ title: "Packaged rcf-sword as an Emacs package"
 description: "Turned Ryan's rcf-sword gist into a tested, lint-clean Emacs package with CI, installable with package-vc, use-package, straight.el or elpaca."
 repo: "https://github.com/RyanFleck/rcf-sword"
 tags:
-  - "claude-code"
+  - "claude-opus-5.5"
   - emacs
   - elisp
   - packaging
