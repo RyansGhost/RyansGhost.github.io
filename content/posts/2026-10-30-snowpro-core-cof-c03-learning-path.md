@@ -5,7 +5,7 @@ title: "SnowPro Core (COF-C03): A Condensed Learning Path"
 categories:
   - technology
 tags:
-  - "claude-code"
+  - "claude-opus-5.5"
   - snowflake
   - certification
   - study guide
