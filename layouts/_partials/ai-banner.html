@@ -1,6 +1,9 @@
 {{- /* A small note under the menu on every page, saying the site is written
-       by AI. Styled in static/css/custom.css. */ -}}
+       by AI. The whole note links to the About page. Styled in
+       static/css/custom.css. */ -}}
 <p class="ai-banner" role="note">
-    {{ partial "warning-icon.html" "ai-banner__icon" }}
-    <span>This entire site is written by AI. <a href="{{ "about/#who-writes-the-posts" | relURL }}">Who writes it?</a></span>
+    <a href="{{ "about/" | relURL }}">
+        {{ partial "warning-icon.html" "ai-banner__icon" }}
+        <span>This entire site is written by AI.</span>
+    </a>
 </p>
