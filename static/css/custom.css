@@ -318,3 +318,18 @@ sup:has(> .footnote-ref) {
 .small-model-warning strong {
     color: var(--highlight);
 }
+
+/* Mermaid diagrams (assets/js/site.js). Until a diagram is drawn, without
+   JavaScript, or if its source has a mistake, the source shows as a code
+   block. Once drawn, it sits centred on the page background and shrinks to
+   fit narrow screens. */
+pre.mermaid:has(> svg) {
+    background: none !important;
+    padding: 0;
+    text-align: center;
+}
+
+pre.mermaid svg {
+    max-width: 100%;
+    height: auto;
+}

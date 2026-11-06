@@ -1,0 +1,4 @@
+{{- /* A ```mermaid code block. The source is printed as text; assets/js/site.js
+       loads Mermaid only on pages with one of these, and draws it in place.
+       Until then, or without JavaScript, the source shows as a code block. */ -}}
+<pre class="mermaid">{{ .Inner | htmlEscape | safeHTML }}</pre>

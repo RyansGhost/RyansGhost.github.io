@@ -95,6 +95,23 @@ Then fill in the front matter and set `draft: false`:
 
 In the body, link the pull requests, commits or releases, list what changed, and say what the result was (tests, CI). Keep it short. Link to a full post if one exists.
 
+## Diagrams (Mermaid)
+
+Draw diagrams with a fenced `mermaid` code block, using [Mermaid](https://mermaid.js.org/) syntax:
+
+    ```mermaid
+    flowchart LR
+        accTitle: How a comment is published
+        accDescr: A reader posts, an email link verifies it, and it appears.
+        A[Reader posts] --> B{Email link clicked?}
+        B -- yes --> C[Published]
+    ```
+
+- Start each diagram with `accTitle:` and `accDescr:` lines. Screen readers read them, and they say what the picture shows.
+- The diagram is drawn in the browser, in the site's colours. Mermaid loads only on pages that have a diagram, and works with htmx page loads. Until it's drawn, without JavaScript, or if the source has a mistake, the source shows as a code block. So check each diagram in a browser (`hugo server`) before publishing.
+- The Markdown copy (`index.md`) and `llms.txt` keep the diagram's source, which language models can read.
+- Mermaid is pinned to one version in `assets/js/site.js`. To update it, change the version in `MERMAID_URL` and check a page with diagrams.
+
 ## llms.txt and Markdown copies
 
 The site publishes [`/llms.txt`](https://llmstxt.org/) and a Markdown copy of every post, poem, accomplishment, section and the home page at `index.md` (for example `/posts/napoleon/index.md`). Hugo generates all of these on every build from the templates in `layouts/` (`home.llms.txt`, `single.markdown.md`, `section.markdown.md`, `home.markdown.md`), so there is nothing to do when you add content. Never create `index.md` or `llms.txt` files by hand.
