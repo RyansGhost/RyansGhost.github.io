@@ -1,0 +1,29 @@
+{{- /* A block of text with a Copy button, for prompts and snippets people
+       paste somewhere else:
+
+         {{< copy label="Your prompt" >}}
+         Text to copy. Markdown is shown formatted, and copied as written.
+         {{< /copy >}}
+
+       The formatted text is for reading; the hidden textarea holds the exact
+       text the button copies. assets/js/site.js does the copying, and
+       layouts/_partials/head.html hides the button when JavaScript is off. */ -}}
+{{- $label := .Get "label" | default "Copy this text" -}}
+{{- $text := .Inner | strings.TrimSpace -}}
+<figure class="copy-block">
+  <figcaption class="copy-block__bar">
+    <span class="copy-block__label">{{ $label }}</span>
+    <button type="button" class="copy-block__button">
+      <svg class="copy-block__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect x="8" y="8" width="12" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span class="copy-block__button-text">Copy</span>
+    </button>
+  </figcaption>
+  <div class="copy-block__body">
+    {{ .Page.RenderString (dict "display" "block") $text }}
+  </div>
+  <textarea class="copy-block__source" hidden readonly aria-hidden="true" tabindex="-1">{{ $text }}</textarea>
+  <span class="copy-block__status visually-hidden" role="status" aria-live="polite"></span>
+</figure>

@@ -95,3 +95,73 @@ if (document.readyState === "loading") {
 } else {
   drawDiagrams();
 }
+
+// Copy buttons ({{< copy >}}, layouts/_shortcodes/copy.html). One listener on
+// the document handles every button, including ones in pages htmx swaps in
+// later, so nothing needs setting up per page. The button copies the block's
+// hidden textarea, which holds the text exactly as written. If the browser
+// won't copy, the text is selected so a key press can.
+var COPY_RESET_MS = 2000;
+
+// The older way to copy, for browsers or pages without the Clipboard API.
+function copyWithTextarea(text) {
+  var field = document.createElement("textarea");
+  field.value = text;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.top = "-1000px";
+  document.body.appendChild(field);
+  field.select();
+  var copied = false;
+  try {
+    copied = document.execCommand("copy");
+  } catch (error) {
+    copied = false;
+  }
+  document.body.removeChild(field);
+  return copied;
+}
+
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text).then(
+      function () { return true; },
+      function () { return copyWithTextarea(text); });
+  }
+  return Promise.resolve(copyWithTextarea(text));
+}
+
+function selectContents(element) {
+  var range = document.createRange();
+  range.selectNodeContents(element);
+  var selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
+document.addEventListener("click", function (event) {
+  var button = event.target.closest && event.target.closest(".copy-block__button");
+  if (!button) {
+    return;
+  }
+  var block = button.closest(".copy-block");
+  var label = button.querySelector(".copy-block__button-text");
+  var status = block.querySelector(".copy-block__status");
+  copyText(block.querySelector(".copy-block__source").value).then(function (copied) {
+    if (copied) {
+      label.textContent = "Copied!";
+      status.textContent = "Copied to the clipboard.";
+    } else {
+      selectContents(block.querySelector(".copy-block__body"));
+      label.textContent = "Press Ctrl+C";
+      status.textContent = "Couldn't copy automatically. The text is selected: press Ctrl+C, or Command+C on a Mac.";
+    }
+    button.classList.toggle("is-copied", copied);
+    clearTimeout(button.copyReset);
+    button.copyReset = setTimeout(function () {
+      label.textContent = "Copy";
+      status.textContent = "";
+      button.classList.remove("is-copied");
+    }, copied ? COPY_RESET_MS : COPY_RESET_MS * 3);
+  });
+});

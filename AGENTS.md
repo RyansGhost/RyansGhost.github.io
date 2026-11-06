@@ -95,6 +95,16 @@ Then fill in the front matter and set `draft: false`:
 
 In the body, link the pull requests, commits or releases, list what changed, and say what the result was (tests, CI). Keep it short. Link to a full post if one exists.
 
+## Copyable text blocks
+
+For text readers will paste somewhere else, such as a prompt or a command, use the `copy` shortcode. It shows the text formatted, with a Copy button that copies it exactly as written:
+
+    {{< copy label="Your study prompt" >}}
+    Write each paragraph on one line: the copy keeps every line break.
+    {{< /copy >}}
+
+`assets/js/site.js` does the copying, with fallbacks, and tells screen readers whether it worked. Without JavaScript the button is hidden and the text can be selected by hand.
+
 ## Diagrams (Mermaid)
 
 Draw diagrams with a fenced `mermaid` code block, using [Mermaid](https://mermaid.js.org/) syntax:
