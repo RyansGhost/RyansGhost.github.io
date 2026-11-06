@@ -21,6 +21,7 @@ document.addEventListener("htmx:before:init", function (event) {
 // update it, change the pinned version here.
 var MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.esm.min.mjs";
 var PENDING_DIAGRAMS = "pre.mermaid:not([data-queued])";
+var MIN_DIAGRAM_SCALE = 0.6;
 var mermaidLoaded = null;
 
 // Colours and font come from the site's own CSS variables (the risotto palette).
@@ -80,10 +81,19 @@ function drawDiagrams() {
     mermaidLoaded = null;
     console.error("Couldn't load Mermaid to draw diagrams:", error);
   }).then(function () {
-    // Any diagram that didn't draw shows its source again.
     diagrams.forEach(function (diagram, i) {
-      if (!diagram.querySelector("svg")) {
+      var svg = diagram.querySelector("svg");
+      if (!svg) {
+        // It didn't draw: show its source again.
         diagram.textContent = sources[i];
+        return;
+      }
+      // Drawn diagrams shrink to fit the page, but never below 60% of their
+      // natural width (Mermaid's max-width), where text gets too small to
+      // read. Past that, the diagram scrolls sideways instead.
+      var natural = parseFloat(svg.style.maxWidth);
+      if (natural) {
+        svg.style.minWidth = Math.round(natural * MIN_DIAGRAM_SCALE) + "px";
       }
     });
   });

@@ -119,6 +119,7 @@ Draw diagrams with a fenced `mermaid` code block, using [Mermaid](https://mermai
 
 - Start each diagram with `accTitle:` and `accDescr:` lines. Screen readers read them, and they say what the picture shows.
 - The diagram is drawn in the browser, in the site's colours. Mermaid loads only on pages that have a diagram, and works with htmx page loads. Until it's drawn, without JavaScript, or if the source has a mistake, the source shows as a code block. So check each diagram in a browser (`hugo server`) before publishing.
+- Diagrams shrink to fit the page, but never below 60% of their full size; wider ones scroll sideways on phones. Keep labels short so diagrams stay narrow.
 - The Markdown copy (`index.md`) and `llms.txt` keep the diagram's source, which language models can read.
 - Mermaid is pinned to one version in `assets/js/site.js`. To update it, change the version in `MERMAID_URL` and check a page with diagrams.
 
