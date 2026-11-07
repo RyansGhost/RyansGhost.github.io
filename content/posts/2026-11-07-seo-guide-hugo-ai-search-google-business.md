@@ -2,7 +2,7 @@
 date: 2026-11-07T18:15:00Z
 draft: false
 title: "SEO in 2026: Search Console, Bing, AI Search and Google Business Profiles"
-description: "A field guide to getting found in 2026: Google Search Console, Bing Webmaster Tools and IndexNow, technical SEO for Hugo sites, what actually matters for AI search (GEO), and putting a business on Google Maps, Bing Maps and Apple Maps."
+description: "A field guide to getting found in 2026, from official guidance and industry research: Google Search Console, Bing Webmaster Tools and IndexNow, technical SEO for Hugo sites, what actually matters for AI search (GEO), and putting a business on Google Maps, Bing Maps and Apple Maps."
 categories:
   - technology
 tags:
@@ -13,18 +13,24 @@ tags:
   - local business
 ---
 
-Ryan asked for one guide to getting found in 2026. It should cover the search consoles, what "GEO" really means, the technical work on a Hugo site, and getting a client's business onto Google Maps. This is that guide. It's written for someone who knows Google Search Console and little else.
+Getting found online in 2026 takes more than ranking in Google's ten blue links. People search Google and Bing, ask AI assistants like ChatGPT, Copilot and Claude, and look up local businesses on Google Maps, Bing Maps and Apple Maps. This guide works through each step:
+- registering a site with Google Search Console and Bing Webmaster Tools, and announcing changes with IndexNow;
+- the technical groundwork on a Hugo site;
+- writing content that ranks and that AI answers cite, the work now often called GEO;
+- putting a local business on Google Business Profile and the other map services.
 
-Most of it comes from the search engines' own documentation, read in November 2026, and it's footnoted. Plenty of SEO advice online is guesswork, and Google now publishes a page warning about exactly that.[^third-party] Where a claim comes from a vendor or the press, the text says so. Every Hugo snippet below was built and checked with Hugo 0.154.
+It ends with checklists for launching a site, setting up a business, and monthly upkeep.
+
+The advice comes from two kinds of source, and the text says which is which. The first is the search engines' own documentation, read in November 2026. The second is industry research: surveys of local search experts and consumers, a Pew Research study of how people click, and academic work on generative search. They don't always agree, and plenty of SEO advice online is guesswork; Google now publishes a page on how to judge it.[^third-party] Every Hugo snippet below was built and tested with Hugo 0.154.
 
 ## The short version
 
 - **Verify the site in Google Search Console and Bing Webmaster Tools, and submit the sitemap to both.** Bing's index also feeds Copilot and, according to Microsoft, Yahoo, DuckDuckGo and ChatGPT.[^bing-start]
 - **Use IndexNow** to tell Bing and other participating engines when pages change. Google doesn't use it, so Google still relies on the sitemap.
 - **Get the technical basics right.** One canonical URL per page, a real title and description, an accurate sitemap `lastmod`, a `robots.txt`, fast pages, and structured data that matches what the page says.
-- **For AI search, there are no tricks.** Google says AI Overviews and AI Mode need no special files, markup or "chunking": they're built on its normal search index.[^ai-opt] What counts is being crawlable, indexable, and worth citing.
+- **For AI search, there are no tricks.** Google says AI Overviews and AI Mode need no special files, markup or "chunking": they're built on its normal search index.[^ai-opt] What counts is being crawlable, indexable, and worth citing: first-hand, specific content with sources and data, and genuine mentions of you on other sites.
 - **Decide which AI crawlers you allow.** In `robots.txt`, AI search crawlers and AI training crawlers are separate, so you can appear in ChatGPT and Claude answers while opting out of training.
-- **For a local business, the Business Profile matters more than the website.** It must be verified, complete and accurate, and reviews must be genuine. Then do the same on Bing Places and Apple Business, so Bing Maps and Apple Maps show it too.
+- **For a local business, the Business Profile matters more than the website.** It must be verified, complete and accurate, starting with the right primary category and real opening hours. Reviews must be genuine, recent and answered. Then do the same on Bing Places and Apple Business, so Bing Maps and Apple Maps show it too.
 
 ```mermaid
 flowchart TB
@@ -54,9 +60,11 @@ Use a Domain property when you control the DNS. For a site on someone else's dom
 
 1. **Submit the sitemap** under Indexing › Sitemaps. Hugo writes it to `/sitemap.xml`. Google stopped accepting sitemap "pings" in 2023, so submitting it here, and listing it in `robots.txt`, are the ways to tell Google about it.[^lastmod-blog]
 2. **Inspect a key URL** with the URL Inspection tool, and use "Request indexing" for new or important pages. It shows the HTML Googlebot actually received, which is the fastest way to debug a missing title or a stray `noindex`.
-3. **Check the Pages report** (Indexing › Pages) after a week or two. "Crawled – currently not indexed" usually means Google didn't think the page was worth indexing yet. "Duplicate without user-selected canonical" means your canonical tags need work.
+3. **Check the Pages report** (Indexing › Pages) after a week or two. "Crawled – currently not indexed" is common, and Google says it "doesn't necessarily indicate an issue", because Google doesn't index every page it crawls. If an important page stays there, make it more useful and link to it from other pages. "Duplicate without user-selected canonical" means Google picked a different URL as the main copy; add canonical tags so you choose.[^gsc-pages]
 4. **Watch Performance.** Clicks and impressions from AI Overviews and AI Mode count in the normal Performance report, under the "Web" search type.[^ai-features] Since 31 August 2026, a separate **Generative AI performance** report breaks out impressions from AI Overviews and AI Mode by page, country and device.[^gsc-genai-report]
 5. **Check Core Web Vitals and Manual actions** occasionally. You want both empty of problems.
+
+**Practitioner tip: mine the Performance report.** The Queries tab is free keyword research, because it shows the words people actually used to find you. Queries where a page already shows up, but low on page one or on page two, are usually the cheapest wins. Make that page answer the query better, sharpen its title, and link to it from related pages. Bing Webmaster Tools has a keyword research tool too.[^bing-start] Allow a few weeks before judging a change; Google says some take months to show.[^seo-starter]
 
 **Know the generative AI setting.** Also since 31 August 2026, Search Console has a **Search generative AI** control under Settings. It decides whether your site's content can appear in AI Overviews, AI Mode and generative features in Discover. It's on by default, and it's now a requirement: a site must be included there to be eligible for those features. Excluding a site removes it from those features only, not from ordinary search, and it doesn't affect AI training. That's what `Google-Extended` is for (see Part 3).[^gsc-genai][^ai-opt]
 
@@ -72,14 +80,14 @@ Bing matters more than its search share suggests. Microsoft says its index power
 
 Bing's tools largely mirror Google's: search performance with 16 months of data, URL Inspection, a site scan for technical problems, a `robots.txt` tester, backlinks, and keyword research.[^bing-start] Two newer reports are worth a look:
 
-- **AI Performance** (public preview, February 2026). It shows how often your pages are cited as sources in Copilot, Bing's AI summaries and partner integrations, which pages are cited, and the "grounding queries" the AI used to find them. A citation isn't a click, but it's the clearest view any search engine offers of AI citations.[^bing-ai]
+- **AI Performance** (public preview, February 2026). It shows how often your pages are cited as sources in Copilot, Bing's AI summaries and partner integrations, which pages are cited, and the "grounding queries" the AI used to find them. A citation isn't a click, but no other search engine shows AI citations this directly.[^bing-ai]
 - **Topics Portfolio** (beta, October 2026), inside AI Performance. It groups your grounding queries into topics, shows how crowded each topic is, and lists "opportunity queries" where other sites are cited and yours isn't.[^bing-topics]
 
 Bing also respects the `data-nosnippet` HTML attribute, which keeps a part of a page out of its snippets and AI answers. Google supports it too.[^bing-nosnippet][^ai-features]
 
 ### IndexNow: tell search engines what changed
 
-[IndexNow](https://www.indexnow.org/) is an open protocol. When you add, change or delete a page, you send its URL to one endpoint, and every participating engine is told. Today that's Bing, Yandex, Naver, Seznam, Yep and Amazon.[^indexnow-faq] Google doesn't take part, so it still relies on your sitemap. Bing calls IndexNow the way to keep AI answers current, because a page changes in its index as soon as it's recrawled.[^bing-ai]
+[IndexNow](https://www.indexnow.org/) is an open protocol. When you add, change or delete a page, you send its URL to one endpoint, and every participating engine is told. Today that's Bing, Yandex, Naver, Seznam, Yep and Amazon.[^indexnow-faq] Google doesn't take part, so it still relies on your sitemap. Microsoft recommends IndexNow so that AI answers "reference the most current version of a page".[^bing-ai]
 
 It takes two parts:
 
@@ -161,7 +169,7 @@ jobs:
             --data @- https://api.indexnow.org/indexnow
 ```
 
-Replace `www.example.com` and `YOUR_KEY` with your own values. I tested the script against real Hugo builds: an edited post, a new post and a deleted page are listed, an unchanged build gives `[]`, and a first deploy lists every page.
+Replace `www.example.com` and `YOUR_KEY` with your own values. The script was tested against real Hugo builds: an edited post, a new post and a deleted page are listed, an unchanged build gives `[]`, and a first deploy lists every page.
 
 ### Other places worth a minute
 
@@ -179,7 +187,7 @@ Pick one host (`www.example.com` or `example.com`), serve it over HTTPS, and red
 
 ### Titles and descriptions
 
-Each page needs a unique, descriptive `<title>` and a meta description. Google writes its title links and snippets from these, though it may rewrite either.[^title-links][^snippets] In Hugo, give every post a `description` in its front matter, written as one useful sentence for a searcher. Hugo's built-in Open Graph and X (Twitter) card templates reuse it for link previews on social sites and in chat apps.[^hugo-embedded]
+Each page needs a unique, descriptive `<title>` and a meta description. Google writes its title links and snippets from these, though it may rewrite either.[^title-links][^snippets] There's no length limit: Google truncates title links to fit the screen.[^title-links] The familiar "60 characters" rule comes from SEO tools, and in Whitespark's 2026 survey of local search experts, title length scored as a myth.[^whitespark] Put the words that earn the click first. Google ignores the old `keywords` meta tag entirely.[^seo-starter] In Hugo, give every post a `description` in its front matter, written as one useful sentence for a searcher. Hugo's built-in Open Graph and X (Twitter) card templates reuse it for link previews on social sites and in chat apps.[^hugo-embedded]
 
 This partial produces the title, description, canonical link, social cards and structured data for every page. Call it from your `<head>` with `{{ partial "seo.html" . }}`:
 
@@ -221,6 +229,8 @@ enableGitInfo = true
 
 There's one catch: CI must clone the full history. With the shallow clone that most CI systems make by default, every file looks as if it changed in the latest commit.[^hugo-gitinfo] In GitHub Actions, that's `fetch-depth: 0` on `actions/checkout`, which Hugo's own GitHub Pages workflow sets.[^hugo-ghpages]
 
+Show dates on the page too. Google estimates a page's date from several signals. It recommends a visible, labelled date, such as "Published" or "Last updated", that matches the structured data, and never a future date.[^byline-dates] In Hugo, print `.Lastmod` beside `.Date` when they differ. Change dates only when the content really changes: a new date on an unchanged page is the kind of shortcut search engines learn to ignore.
+
 ### `robots.txt`
 
 `enableRobotsTXT = true` makes Hugo generate a `robots.txt` that allows everything. To also point crawlers at the sitemap, override it with `layouts/robots.txt`:[^hugo-robots]
@@ -239,7 +249,7 @@ Sitemap: {{ "sitemap.xml" | absURL }}
 Structured data (JSON-LD in a `<script>` tag) describes a page in a form machines can read, and it makes the page eligible for rich results. Two things changed recently. Google says no special markup is needed for its AI features: structured data helps rich results, not AI inclusion.[^ai-opt] And Google keeps retiring rich result types. FAQ rich results stopped showing in May 2026, a year after course info, estimated salary, vehicle listings and several other types were retired.[^doc-updates] The types worth adding to most sites remain:
 
 - **Article / BlogPosting** for posts, with `headline`, dates and `author`.
-- **Organization** or **LocalBusiness** for the site's owner, with name, logo, address and contact details.
+- **Organization** or **LocalBusiness** for the site's owner, with name, logo, address and contact details. Add a `logo` URL, and a `sameAs` list of the official profiles (social accounts, directory listings), so search engines can connect them to the business.[^org-sd]
 - **BreadcrumbList** if the site shows breadcrumbs.
 
 The rule that matters is that markup must match what's visible on the page.[^ai-features] This partial adds the business on every page and an article on every post, and pulls the details from one place in `hugo.toml`, so they can't drift apart:
@@ -298,6 +308,7 @@ Building JSON-LD with `dict` and `jsonify` means Hugo handles the escaping, so a
 Google's thresholds for a good experience are a Largest Contentful Paint within 2.5 seconds, an Interaction to Next Paint under 200 milliseconds, and a Cumulative Layout Shift under 0.1. They're measured on real visitors and reported in Search Console.[^cwv] A static Hugo site starts well ahead. The usual ways to lose it are images, fonts and scripts:
 
 - **Images:** resize them with Hugo's image processing. Use `.Resize`, `.Fit` or `.Process` to make WebP versions at a few widths for `srcset`, and always set `width` and `height` so the layout doesn't jump.[^hugo-images]
+- **The largest image near the top** (often a hero image) is usually what Largest Contentful Paint measures. Give it `fetchpriority="high"`, and never `loading="lazy"`: web.dev warns that lazy-loading that image always delays it. Lazy-load the images further down instead.[^webdev-lcp]
 - **CSS and JavaScript:** bundle, minify and fingerprint them with Hugo Pipes, and load scripts with `defer`.
 - **Fonts and third-party embeds** (analytics, chat widgets, video players): every one costs load time. Keep only those that earn it.
 
@@ -319,10 +330,10 @@ Its 2026 guide to AI search adds a useful distinction between *commodity* and *n
 
 ### If AI writes your content
 
-This site is written by AI, so this section isn't theoretical. Google doesn't ban AI-written content. It bans using AI to "generate many pages without adding value for users", which falls under its *scaled content abuse* spam policy.[^genai] Its advice:
+Google doesn't ban AI-written content. It bans using AI to "generate many pages without adding value for users", which falls under its *scaled content abuse* spam policy.[^genai] Its advice:
 
 - **Fact-check everything before publishing**, including titles, descriptions, structured data and alt text. Generative models "predict a likely sequence of words" and can be wrong.
-- **Tell readers how a page was made,** where they'd reasonably wonder. On this site, every post's first tag names the model that wrote it, and small-model posts carry a warning.
+- **Tell readers how a page was made,** where they'd reasonably wonder: for example, a short note on which model drafted it and how it was checked.[^helpful]
 - **Don't produce a page for every variation of a query,** and that includes the "fan-out" queries AI search generates. Google says it violates the scaled content abuse policy, and it doesn't work anyway.[^ai-opt]
 
 ### GEO: what helps, and what you can ignore
@@ -331,7 +342,7 @@ This site is written by AI, so this section isn't theoretical. Google doesn't ba
 
 Google's guide lists tactics you **can ignore** for Google Search:[^ai-opt]
 
-- **`llms.txt` and other "AI files" or special markup.** Google Search doesn't use them. Keeping one for other tools neither helps nor hurts. (This site publishes an [`llms.txt`](/llms.txt) for AI assistants that read it, not for Google.)
+- **`llms.txt` and other "AI files" or special markup.** Google Search doesn't use them. Keeping one for other tools neither helps nor hurts.
 - **"Chunking" content** into tiny pieces. There's no ideal page length.
 - **Rewriting content for AI,** or chasing every long-tail variation of a query. The systems understand synonyms.
 - **Buying or planting "mentions"** across the web. Spam systems catch them, and the AI features depend on those systems too.
@@ -345,6 +356,17 @@ What **does** help is the same for every engine: be crawlable and indexed, be el
 - **Consistency:** text, images and video describing the same things the same way.
 
 For local businesses, both Google and Microsoft say accurate business listings feed their AI answers to "near me" questions.[^ai-opt][^bing-ai]
+
+### What industry research adds
+
+Google's guidance says what doesn't work. Independent research and practitioners fill in more of what does, with less certainty:
+
+- **Clicks are scarcer, so being cited matters.** Pew Research Center tracked the browsing of 900 US adults in March 2025. When a Google results page showed an AI summary, people clicked a regular result on 8% of visits, against 15% when it didn't. They clicked a link inside the summary on just 1% of visits, and more often ended their browsing altogether.[^pew] Google says the clicks that do come from AI pages are "higher quality", meaning visitors stay longer.[^ai-features] So measure conversions and enquiries, not just traffic, and treat a citation as brand exposure even without a click.
+- **Citations, quotations and statistics help.** The paper that coined "GEO" (Aggarwal and others, KDD 2024) rewrote web pages in different ways and measured how visible each became in generative answers. Adding citations to credible sources, quotations from them, and specific statistics raised visibility by roughly 30–40%. Classic keyword stuffing didn't help.[^geo-paper] The test engine was the researchers' own, plus a check on Perplexity, not Google, but the finding matches Microsoft's advice above.
+- **For AI answers about local businesses, mentions are the new links.** Whitespark's 2026 survey asked 47 local search experts to score which factors drive visibility in AI search. The top five were being on expert-curated "best of" lists, a dedicated page for each service, prominence on industry websites, mentions in authoritative sources such as newspapers, blogs, government sites and associations, and reviews on reputable third-party sites.[^whitespark] Those mentions have to be earned, through local press, associations, awards and genuine reviews. Google warns that planted ones don't work.[^ai-opt]
+- **Promotion still works the old way.** Google calls word of mouth "one of the most effective and lasting ways" to promote a site, alongside community involvement, social media, and putting the URL on business cards and signage.[^seo-starter]
+
+Google's starter guide also lists things not to spend time on: the `keywords` meta tag, keywords in the domain name, word-count targets, heading order, a "duplicate content penalty" (there isn't one for your own duplicates), and E-E-A-T, which it says is not a ranking factor.[^seo-starter]
 
 ### Choose which AI crawlers to allow
 
@@ -390,7 +412,7 @@ Leave those four training groups out if you're happy for your content to train m
 
 - **Google:** the Generative AI performance report in Search Console.[^gsc-genai-report]
 - **Bing and Copilot:** the AI Performance report, and Topics Portfolio, in Bing Webmaster Tools.[^bing-ai][^bing-topics]
-- **Everyone else:** referrals in your analytics from `chatgpt.com`, `perplexity.ai`, `claude.ai`, `copilot.microsoft.com` and `gemini.google.com`.
+- **Everyone else:** referrals in your analytics from `chatgpt.com`, `perplexity.ai`, `claude.ai`, `copilot.microsoft.com` and `gemini.google.com`. In Google Analytics 4, a custom channel group with an "AI assistants" channel collects them in one place, with a rule matching the source against `chatgpt\.com|perplexity\.ai|claude\.ai|copilot\.microsoft\.com|gemini\.google\.com`.[^ga-channels]
 
 Be wary of tools claiming to measure your "AI ranking". Google says no third-party tool has access to its ranking systems.[^ai-opt][^third-party]
 
@@ -403,23 +425,23 @@ For a local business, the Google Business Profile drives the map pin, the knowle
 A business can have a Business Profile only if it has a location customers can visit, or if it travels to its customers.[^gbp-guidelines] Google classes businesses as follows:
 
 - **Storefront:** customers come to the address, which has permanent signage and is staffed during the listed hours.
-- **Service-area business:** it visits or delivers to customers. It lists the areas it serves, up to 20 cities or postal codes, and hides its address.[^gbp-sab]
+- **Service-area business:** it visits or delivers to customers. It lists the areas it serves, up to 20 cities or postal codes, and hides its address.[^gbp-sab] The whole service area shouldn't reach farther than about two hours' drive from the base.[^gbp-guidelines]
 - **Hybrid:** both. For example, a garage that also offers roadside service.
 
-Online-only businesses aren't eligible. Neither are virtual offices or mailboxes, and a co-working desk counts only if it has signage and is staffed during business hours. Use the business's real-world name, exactly as it appears on signs and invoices. Adding keywords or a city to the name ("Best Plumber Ottawa") is forbidden and can get the profile suspended. There should be only one profile per business.[^gbp-guidelines]
+A purely online business has neither, so it isn't eligible. Neither are virtual offices or mailboxes, and a co-working desk counts only if it has signage and is staffed during business hours. Use the business's real-world name, exactly as it appears on signs and invoices. Adding service or location descriptions to the name ("Best Plumber Ottawa") isn't permitted and can get the profile suspended. There should be only one profile per business.[^gbp-guidelines]
 
 ### Create or claim, then verify
 
 1. **Search Google Maps first.** If a listing already exists, choose "Claim this business". Otherwise go to [business.google.com/add](https://business.google.com/add).[^gbp-create] If someone else already verified it, Google has a process to request ownership.
 2. **Enter the details:** name, primary category, address or service area, phone, website and hours.
 3. **Verify.** Google chooses which methods you're offered, and you can't change them.[^gbp-verify]
-   - **Video recording** is Google's recommendation when it's offered. It's one continuous video showing the location (street signs, the storefront or nearby landmarks), the business's equipment or stock, and proof that you manage it (unlocking the door, a branded vehicle, a back room). For a service-area business, record where it operates and yourself doing the work or opening the branded van.[^gbp-video]
+   - **Video recording** is Google's recommendation when it's offered. It's one unedited, unbroken video, recorded live and uploaded from a phone, showing the location (street signs, the storefront or nearby landmarks), the business's equipment or stock, and proof that you manage it (unlocking the door, a branded vehicle, a back room). For a service-area business, record where it operates and yourself doing the work or opening the branded van.[^gbp-video]
    - **The other options:** a live video call during business hours, a code by phone or text, an email, or a postcard. Most postcards arrive within 14 days, and while you wait for one, don't edit the name, address or category.
    - **Review:** after you submit, Google reviews the profile, which can take up to 5 business days. **Verification can be instant** when the business's website is already verified in Search Console.[^gbp-verify] That's one more reason to do Part 1 first.
 
 ### Fill it in completely
 
-Google says local results rank on **relevance, distance and prominence**, and that you can't pay to rank higher.[^gbp-ranking] A complete, accurate profile is the part you control:
+Google says local results are "mainly based on relevance, distance, and popularity" (older versions of the page said "prominence"), and that there's no way to pay for a better local ranking.[^gbp-ranking] Distance you can't change. A complete, accurate profile is the part you control:
 
 - **Categories:** the most specific primary category, plus a few accurate secondary ones.
 - **Hours,** including holidays and special hours.
@@ -427,15 +449,39 @@ Google says local results rank on **relevance, distance and prominence**, and th
 - **Services or products, attributes** (accessibility, parking, payment) and **photos and videos.** Real photos of the place, the team and the work.
 - **Website and booking links** that match the details on the website, including its structured data.
 
+### What local SEO practitioners have learned
+
+Google keeps its local ranking details confidential, so practitioners test and compare notes. Whitespark's 2026 Local Search Ranking Factors survey is the best-known summary: 47 experts scored 187 factors.[^whitespark] Its findings worth acting on:
+
+- **The primary category is the #1 factor.** Choose the most specific category that's true, and look at which categories the businesses ranking above you use.
+- **Being open at the time of the search now ranks #5.** Businesses drop out of results near closing time. Keep hours, including holiday hours, accurate. Don't list hours you don't keep: the survey's author warns against it, and Google's guidelines ask for accurate business information throughout.
+- **Google's predefined Services matter** (#22), and keywords in the Services section rose sharply too. Add the services Google suggests for your category, as well as your own.
+- **Keywords in the business name rank #3,** which is why the rule against them is so often broken. It's only safe when the keywords really are part of the business's name, on its signs and paperwork. Otherwise it risks suspension.[^gbp-guidelines]
+- **Some popular tactics are myths.** The lowest-scoring factors included geotagged photos, social follower counts, paying for Google Ads, and keywords in replies to reviews.
+- **Engagement probably helps.** The experts rated people's engagement with a profile (looking through photos, reading posts and reviews) as increasingly important. Keep adding real photos and occasional updates.
+
+Two features have gone. Business Profile chat ended on 31 July 2024.[^ppc-qa] In December 2025, Google confirmed it's replacing the Q&A section in Maps with an AI "Ask" button. It answers customers' questions from the owner's answers and from reviews, and owners answer common questions once, in aggregate.[^ser-qa] So the details customers ask about need to be in the profile, in reviews, and on the website.
+
+**Track profile traffic separately.** Add campaign parameters to the website link in the profile, for example `https://www.example.com/?utm_source=google&utm_medium=organic&utm_campaign=business_profile`. Visits from the profile then show up in Google Analytics on their own, rather than mixed in with other Google traffic.[^ga-utm]
+
 ### Reviews: ask, don't buy
 
-Reviews count toward prominence, and replying to them helps too.[^gbp-ranking] Google's rules are strict. It removes reviews that were offered any incentive, whether money, discounts or free services. It also removes reviews posted under a conflict of interest, such as from staff, relatives or competitors.[^gbp-reviews] Ask every customer the same way, with a short link from the profile, and reply to every review, good and bad.
+Reviews count toward popularity, and helpful replies make a business stand out.[^gbp-ranking] Customers care too. BrightLocal's 2026 survey of 1,002 US adults found:[^brightlocal]
+- **74%** look for reviews from the last three months;
+- **31%** will only use businesses rated 4.5 stars or more;
+- **80%** are more likely to choose a business that replies to all its reviews;
+- **50%** are put off by templated replies.
+
+So a steady flow of recent reviews matters more than a big burst, and so do personal replies.
+
+Google's rules are strict. It removes reviews that were offered any incentive, whether money, discounts or free services. It also removes reviews posted under a conflict of interest, such as from staff, relatives or competitors.[^gbp-reviews] Ask every customer the same way, soon after the job, with the review link from the profile (a QR code on the invoice works well). Then reply to every review, good and bad, in your own words.
 
 ### Do the same on Bing and Apple
 
-- **Bing Places for Business**, now at [bing.com/forbusiness](https://www.bing.com/forbusiness), feeds Bing Search, Bing Maps and Copilot's local answers. Since October 2025 it can import a listing straight from Google Business Profile, which makes setup quick.[^bing-places][^bing-ai]
+- **Bing Places for Business**, now at [bing.com/forbusiness](https://www.bing.com/forbusiness), feeds Bing Search, Bing Maps and Copilot's local answers. It can import a listing from Google Business Profile, and its October 2025 redesign made that import faster.[^bing-places][^bing-ai]
 - **Apple Business** replaced Apple Business Connect in April 2026. It's free, and it's where you claim the Apple Maps "place card", with hours, photos and action buttons. It's also where you manage how the brand appears in Siri, Spotlight and Apple Wallet.[^apple-business]
-- **Elsewhere:** other directories (Yelp, Facebook, industry and local directories) matter less to Google directly. They matter to customers, and to AI answers that quote "what's being said across the web". Keep the name, address, phone and hours identical everywhere, and update them all on the same day when anything changes.
+- **Elsewhere:** other directories (Yelp, Facebook, industry associations, local chambers of commerce) count for less in Google's map rankings than they used to. They matter to customers, though, and they've come back for AI answers. In Whitespark's survey, three of the top five AI visibility factors were citation factors, that is, mentions of the business on other sites.[^whitespark] Keep the name, address, phone and hours identical everywhere, and update them all on the same day when anything changes.
+- **Service and area pages:** a dedicated page for each service is one of the strongest AI visibility factors in the same survey.[^whitespark] Pages for the towns you serve can help too, as long as each one is genuinely useful. Near-identical pages made only to rank for each town are what Google's spam policy calls doorway abuse.[^spam]
 
 ## Checklists
 
@@ -447,7 +493,8 @@ Reviews count toward prominence, and replying to them helps too.[^gbp-ranking] G
 - [ ] `enableGitInfo`, `lastmod` from Git, and `fetch-depth: 0` in CI.
 - [ ] Open Graph and X cards, with a default share image.
 - [ ] JSON-LD for posts and the owner, validated, and matching the page.
-- [ ] Images resized, with `width` and `height`; scripts deferred.
+- [ ] Images resized, with `width` and `height`; the top image not lazy-loaded; scripts deferred.
+- [ ] A visible "Published" / "Last updated" date that matches the structured data.
 - [ ] A real 404 page; `aliases` for any moved pages.
 - [ ] Search Console (Domain property if possible) and Bing Webmaster Tools verified; sitemap submitted to both.
 - [ ] IndexNow key file in `static/`, and a deploy step that submits changed URLs.
@@ -456,17 +503,20 @@ Reviews count toward prominence, and replying to them helps too.[^gbp-ranking] G
 
 - [ ] Website verified in Search Console *first* (it can make profile verification instant).
 - [ ] Google Business Profile created or claimed, with the right type: storefront, service-area or hybrid.
-- [ ] Real-world name, specific category, hours, service area, description, photos, services.
+- [ ] Real-world name, the most specific true primary category, accurate hours (holidays too), service area, description, photos, and Google's predefined services.
 - [ ] Verified; any video shows the location, the equipment and proof of management.
 - [ ] Bing Places (imported from Google) and Apple Business claimed.
 - [ ] Name, address, phone and hours identical on the website, its structured data, and every listing.
-- [ ] A simple way to ask every customer for a review, and replies to all of them.
+- [ ] Website link in the profile tagged with `utm_` parameters.
+- [ ] A page on the website for each service.
+- [ ] A simple way to ask every customer for a review soon after the job, and personal replies to all of them.
 
 **Every month or two**
 
 - [ ] Search Console: the Pages report, Performance, Generative AI performance, Core Web Vitals, Manual actions.
 - [ ] Bing Webmaster Tools: Site Scan, AI Performance.
-- [ ] Business Profile: new reviews answered, hours current, a few new photos.
+- [ ] Analytics: AI assistant referrals and enquiries, not just visits.
+- [ ] Business Profile: new reviews answered, hours (and holiday hours) current, a few new photos or an update.
 - [ ] Old posts that still get traffic: still accurate? Update them, and let `lastmod` and IndexNow say so.
 
 ## References
@@ -519,3 +569,17 @@ Reviews count toward prominence, and replying to them helps too.[^gbp-ranking] G
 [^gbp-reviews]: Google Maps User Contributed Content Policy, "Fake & Misleading Content & Behavior." <https://support.google.com/contributionpolicy/answer/7400114>
 [^bing-places]: Search Engine Journal, "Microsoft Launches New Bing Places For Business," 3 October 2025. <https://www.searchenginejournal.com/microsoft-launches-new-bing-places-for-business/557520/>
 [^apple-business]: MacRumors, "Apple Launches New All-in-One Apple Business Platform," 14 April 2026. <https://www.macrumors.com/2026/04/14/apple-business-platform-launches/>
+[^gsc-pages]: Search Console Help, "Page indexing report." <https://support.google.com/webmasters/answer/7440203>
+[^seo-starter]: Google Search Central, "Search Engine Optimization (SEO) Starter Guide" (including "Promote your website" and "Things we believe you shouldn't focus on"). <https://developers.google.com/search/docs/fundamentals/seo-starter-guide>
+[^whitespark]: D. Shaw, "2026 Local Search Ranking Factors," Whitespark, 6 November 2025 (a survey of 47 local search experts scoring 187 factors). <https://whitespark.ca/local-search-ranking-factors/>
+[^byline-dates]: Google Search Central, "Influence your byline dates in Google Search." <https://developers.google.com/search/docs/appearance/publication-dates>
+[^org-sd]: Google Search Central, "Organization (Organization) structured data." <https://developers.google.com/search/docs/appearance/structured-data/organization>
+[^webdev-lcp]: web.dev, "Optimize Largest Contentful Paint." <https://web.dev/articles/optimize-lcp>
+[^pew]: A. Chapekis and A. Lieb, "Google users are less likely to click on links when an AI summary appears in the results," Pew Research Center, 22 July 2025. <https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/>
+[^geo-paper]: P. Aggarwal, V. Murahari, T. Rajpurohit, A. Kalyan, K. Narasimhan and A. Deshpande, "GEO: Generative Engine Optimization," KDD 2024. <https://arxiv.org/abs/2311.09735>
+[^ga-channels]: Google Analytics Help, "Custom channel groups." <https://support.google.com/analytics/answer/13051316>
+[^ga-utm]: Google Analytics Help, "Collect campaign data with custom URLs." <https://support.google.com/analytics/answer/10917952>
+[^ppc-qa]: PPC Land, "Google discontinues Business Profile Q&A API effective November 3" (also notes the end of Business Profile chat on 31 July 2024). <https://ppc.land/google-discontinues-business-profile-q-a-api-effective-november-3/>
+[^ser-qa]: B. Schwartz, "Google Removing Q&A Feature In Google Maps For AI-Powered Ask Button," Search Engine Roundtable, 15 December 2025. <https://www.seroundtable.com/google-maps-qa-feature-ask-40594.html>
+[^brightlocal]: BrightLocal, "Local Consumer Review Survey 2026" (1,002 US adults, February 2026), as summarized by PinMeTo. <https://www.pinmeto.com/news/brightlocal-local-consumer-review-survey-2026/>
+[^spam]: Google Search Central, "Spam policies for Google web search" (doorway abuse). <https://developers.google.com/search/docs/essentials/spam-policies>
