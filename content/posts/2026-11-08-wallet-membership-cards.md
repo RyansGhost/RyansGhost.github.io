@@ -131,7 +131,7 @@ The endpoints are defined by Apple, under `/v1/` beneath the pass's `webServiceU
 Lessons from building it:
 
 - **Pushes use the pass certificate itself.** No separate push key is needed: the push is signed with the same certificate and key that signed the pass, with the pass type as the topic. Pass pushes only work in Apple's *production* push environment, not the sandbox.[^apple-web-service]
-- **Retire dead tokens.** When Apple's push service answers `410` or `BadDeviceToken`, delete that registration, and record the card as no longer in that wallet.
+- **Retire dead tokens.** When Apple's push service answers `410` or `BadDeviceToken`, delete that registration. If no other device holds the card, record it as no longer in a wallet (section E).
 - **Return every change since the tag.** The "what changed?" request must list *every* pass updated since the device's tag, not only the passes at the single latest timestamp. A library tried early on got this wrong, and was replaced.
 - **Make the update tag URL-safe.** The `lastUpdated` tag is an opaque value the device sends back in a query string. An ISO timestamp like `…+00:00` comes back as `… 00:00`, because `+` means a space in a query string, and then parses as midnight. Integer microseconds since the epoch avoid the problem; Apple's own example uses an integer timestamp.[^apple-web-service]
 - **Never push from inside a database save.** One library pushed synchronously every time a pass record was saved. As soon as a device registered, a re-download raised an error and rolled back. Push explicitly, in batches, from background jobs.
@@ -284,7 +284,7 @@ erDiagram
 
 Each card record says which wallet it's in, Apple or Google. A wallet event's kind is one of issued, added, removed, updated, notified or failed, and its unique `nonce` lets duplicate Google callbacks be dropped. A notification with no regions goes to everyone, and its status moves from draft to sending, then sent or failed.
 
-One rule keeps the records trustworthy: **every change to "is this card in a wallet?" goes through a single function.** Apple registrations, Google callbacks and the nightly check all call it. It updates the card record, and appends a history event only when something really changed, so repeated reports and checks add no noise.
+One rule keeps the records trustworthy: **every change to "is this card in a wallet?" goes through a single function.** Section E explains how that works, and why notifications depend on it.
 
 ### Importing members and targeting regions
 
@@ -334,7 +334,7 @@ When a send is confirmed:
 - **Google, to everyone:** one message on the class.
 - **Google, to selected regions:** one message on each targeted card.
 
-The notification stores counts for each wallet: cards targeted, updated, pushed, sent, failed and over quota. New downloads and later rebuilds show the member's latest message, silently.
+The notification stores counts for each wallet: cards targeted, updated, pushed, sent, failed, over quota and skipped. New downloads and later rebuilds show the member's latest message, silently.
 
 **Test sends** use the same delivery for a handful of chosen cards, such as one member's cards or a single card. They go out immediately, are limited to a few cards, and are logged as tests in the card history rather than as notifications. The Apple text includes a timestamp, so a repeated test still changes the field, and still alerts.
 
@@ -347,14 +347,136 @@ An admin page answers "how many members actually have the card?", region by regi
 - Google: links opened, cards in a wallet, and cards removed;
 - adoption rates, and the last 30 days of activity.
 
-"In a wallet" means the wallet confirmed it:
+"In a wallet" means the wallet itself confirmed it. Section E explains what counts as proof.
 
-- **Apple:** at least one registered device.
-- **Google:** a save callback, or `hasUsers` at the nightly check.
+## E. Proving cards are in wallets, and why notifications depend on it
 
-An iPhone that keeps a card but never registers counts only as a download.
+A download isn't an installed card. A member can tap the Apple button and dismiss the "Add" sheet, open the Google save page and close it, or add the card and delete it a week later. If the system treated every download as a card on a phone, it would report adoption it doesn't have, promise administrators an audience that isn't there, and spend pushes and Google's limited alert quota on phones that will never show them.
 
-## E. Architecture and storage
+So the system keeps two separate facts for every member and wallet:
+
+- **Issued:** the member downloaded the Apple card or opened the Google save link. The server knows this on its own.
+- **In a wallet:** the wallet itself confirmed it holds the card. Only Apple's devices and Google's servers can say this, and the system records it only when they do.
+
+Everything that reaches a member's phone after the first download, and every reach count and statistic, is based on the second fact.
+
+### What counts as proof
+
+The system never infers "in a wallet". It records it only from evidence that comes from the wallet side, which the member's browser or a third party can't produce.
+
+```mermaid
+flowchart LR
+    accTitle: The evidence that a card is in a wallet
+    accDescr: Apple evidence is a device registering the pass with the pass's own token, a device unregistering, Apple's push service reporting a dead push token, and a nightly check for registrations. Google evidence is a signed save callback, a signed delete callback, and a nightly check of the object's hasUsers flag. All of it goes through one function, which updates the card record and adds a history event.
+    subgraph Apple["Apple evidence"]
+        A1["Device registers the pass"]
+        A2["Device unregisters"]
+        A3["Push token reported dead"]
+        A4["Nightly: any registration?"]
+    end
+    subgraph Google["Google evidence"]
+        G1["Signed 'save' callback"]
+        G2["Signed 'del' callback"]
+        G3["Nightly: hasUsers flag"]
+    end
+    A1 -->|in| F
+    A2 -->|"out, if none left"| F
+    A3 -->|"out, if none left"| F
+    A4 -->|correct| F
+    G1 -->|in| F
+    G2 -->|out| F
+    G3 -->|correct| F
+    F["One function for every change"] --> R[("Card record")]
+    F --> H[("History event")]
+```
+
+**Apple: device registration.** When an iPhone adds a pass that has a `webServiceURL`, Wallet registers it with the server.[^apple-web-service] It sends:
+
+- its device library ID;
+- its push token;
+- the pass's `authenticationToken`, in the `Authorization: ApplePass …` header.
+
+The token is random, unique to that member's pass, and exists only inside the signed pass file. A request carrying it is therefore proof that a device holds that exact pass. The server treats an Apple card as in a wallet **while at least one device is registered** for it, since one member may carry it on both a phone and a watch. It counts the card as removed when the last device unregisters, or when Apple's push service reports that the last device's token is gone (`410` or `BadDeviceToken`).
+
+**Google: signed callbacks.** When a member saves or deletes a card of the organization's class, Google sends a message to the class's callback URL. That message is signed: Google's root keys sign an intermediate key, and the intermediate key signs the message, whose signed data names the organization's issuer ID as the recipient. The server accepts the message only if both signatures check out, neither the key nor the message has expired, and its nonce hasn't been seen before. A forged or replayed "save" therefore can't mark a card as added. Section C has the verification steps.
+
+**Both: a nightly re-check.** Callbacks are best effort, and devices can disappear without saying goodbye, so a scheduled job works out the truth again once a day:
+
+- **Apple:** in a wallet if any device registration exists for the member's pass.
+- **Google:** in a wallet if the object's `hasUsers` flag is true. Google's platform sets that flag, not the system.[^google-object]
+
+The re-check also fills in cards that were saved before tracking existed, or while callbacks weren't configured. Its first run is worth watching: it can find saved cards that were never reported.
+
+### One gate, with a history
+
+Registrations, unregistrations, dead tokens, callbacks and the nightly re-check all go through a single function, which:
+
+1. compares the reported state with the stored one;
+2. does nothing if it's unchanged, so duplicate callbacks and agreeing re-checks add no noise;
+3. if it changed, updates the card's "in a wallet" flag, and stamps the time it was added or removed;
+4. appends a history event recording **what changed, and which evidence said so**: an Apple registration, a dead push token, a Google callback (with its nonce), or the nightly re-check.
+
+```mermaid
+stateDiagram-v2
+    accTitle: A card's states
+    accDescr: A card starts as issued when it's downloaded or its save link is opened. It moves to in a wallet when a device registers, Google reports a save, or the nightly re-check finds it held. It moves to removed when the last device unregisters, its push token is gone, Google reports a deletion, or the nightly re-check finds it gone. A removed card can be added again.
+    [*] --> Issued: downloaded, or save link opened
+    Issued --> InWallet: device registers, or Google "save"
+    Issued --> InWallet: nightly re-check finds it held
+    InWallet --> Removed: last device gone, or Google "del"
+    InWallet --> Removed: nightly re-check finds it gone
+    Removed --> InWallet: added again
+```
+
+Because every change is logged with its source, an administrator can answer "how do we know this member has the card?" for any member, with a date and the evidence behind it.
+
+### How certain is "in a wallet"?
+
+- **Apple device registration** is strong evidence: it's authenticated with the pass's secret token. But it only happens if the device can reach the web service. A pass built with the wrong `webServiceURL`, or a phone that can't reach the server, never registers.
+- **A rejected push token** is strong evidence that a device removed the card, but the system only learns it when it tries to push.
+- **A Google signed callback** is strong evidence: it's signed by Google, expires, and is deduplicated. But delivery is best effort, and nothing is sent until the class's callback URL is set.
+- **Google's `hasUsers` flag** is authoritative, because Google sets it. But it's read once a night, so it can be up to a day behind.
+
+One gap is deliberate. An iPhone that adds a card but never registers is counted only as **issued**. The system would rather under-report than claim an audience it can't reach. Such a phone can't receive updates or messages either, so "not in a wallet" is the honest answer.
+
+### Why good notifications are built on this
+
+Every part of the notification workflow reads the same "in a wallet" fact.
+
+```mermaid
+flowchart TD
+    accTitle: How a notification chooses where to deliver
+    accDescr: A draft notification targets the members in the chosen regions. For each member, if their Apple card is in a wallet, the pass is rebuilt and pushed to its devices; if their Google card is in a wallet, the message is added to that card, or one class message goes to everyone. Cards not in a wallet are skipped. All outcomes are counted per wallet.
+    N["Draft: title, message, regions"] --> AUD["Members in the chosen regions"]
+    AUD --> C1{"Apple card in a wallet?"}
+    AUD --> C2{"Google card in a wallet?"}
+    C1 -->|yes| AR["Rebuild the pass, push to its devices"]
+    C1 -->|no| SK["Skipped"]
+    C2 -->|yes| GR["Add the message to that card"]
+    C2 -->|no| SK
+    AR --> CNT["Delivery counts per wallet"]
+    GR --> CNT
+    SK --> CNT
+```
+
+- **An honest preview.** Before anything is sent, the admin sees how many members are targeted, and how many of their Apple and Google cards are *in wallets*. That's the real reach, not the number of people who once clicked a link.
+- **Messages go only where they can arrive.** Apple pushes go only to registered devices, which are the only ones that can receive them. Google messages to individual cards go only to saved cards. A message to everyone is a single class message, which reaches every saved card. Nothing is spent on cards that were never added, or were removed.
+- **Rate limits are protected.** Google allows three alerting messages per card per day. Sending only to cards that are really held, and blocking a send that would go over the limit, saves the quota for messages members will actually see.
+- **The results add up.** Each notification stores what happened in each wallet: targeted, updated, pushed, sent, failed, over quota and skipped. Because "targeted" means "confirmed in a wallet", those numbers describe real phones. A gap between targeted and delivered is a real delivery problem, not noise from abandoned downloads.
+- **Segments stay meaningful.** "Send to members in region X" reaches the members in region X who actually carry the card. The statistics page shows the same number for each region before anyone decides to send.
+- **Delivery feeds back into the evidence.** A push that Apple rejects for a dead token updates the card's state immediately, so the next notification's preview is more accurate than the last.
+
+### Checking it yourself
+
+Administrators can check the whole chain without touching the server:
+
+1. **The statistics page:** for each region, compare "downloaded" with "in a wallet". A large gap points to members who never finished adding the card, or to a configuration problem: Apple cards not registering, or Google callbacks not set up.
+2. **A card's history:** for any member, see when the card was issued, added and removed, and which evidence recorded each change.
+3. **A test send:** send a test message to your own card. The admin reports, for each wallet, whether it was targeted, pushed or sent, or skipped because the card isn't in a wallet. Your phone confirms the rest.
+
+If those three agree, the system's view of who carries the card, and so of who a notification will reach, matches reality.
+
+## F. Architecture and storage
 
 The system is a conventional web application with background workers. Nothing in it depends on a particular cloud.
 
@@ -396,7 +518,7 @@ What's stored, and where:
 - **Google cards:** Google's servers. The system keeps only each object's ID, and updates the cards through the API.
 - **Signing keys:** the read-only secrets mount. Back them up separately and securely.
 
-## F. Running it on your own hardware
+## G. Running it on your own hardware
 
 The whole system, database included, can run in containers on a single ordinary server on your own premises. Two things are easy to overlook.
 
