@@ -8,6 +8,15 @@
         {{ .Content | replaceRE `</sup><sup id="fnref` `</sup><sup class="footnote-next" id="fnref` | safeHTML }}
     </div>
     <footer class="content__footer"></footer>
+    {{- /* Back-to-top link: hidden until the reader scrolls down, by
+           assets/js/site.js. "#top" scrolls to the top of the page even
+           without JavaScript, when head.html shows the link all the time. */}}
+    <a href="#top" class="to-top" title="Back to top">
+        <svg class="to-top__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="visually-hidden">Back to top</span>
+    </a>
 {{ end }}
 
 {{define "aside" }}

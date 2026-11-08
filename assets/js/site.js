@@ -175,3 +175,47 @@ document.addEventListener("click", function (event) {
     }, copied ? COPY_RESET_MS : COPY_RESET_MS * 3);
   });
 });
+
+// Back-to-top link (layouts/_default/single.html). It appears once the reader
+// has scrolled down a screen and a half, scrolls back smoothly unless they've
+// asked for reduced motion, and moves keyboard focus to the page title so Tab
+// carries on from the top. The scroll listener is set up once and finds the
+// current page's link each time, so it keeps working after htmx swaps pages.
+var TO_TOP_AFTER_SCREENS = 1.5;
+var toTopQueued = false;
+
+function updateToTop() {
+  toTopQueued = false;
+  var link = document.querySelector(".to-top");
+  if (link) {
+    link.classList.toggle("is-visible", window.scrollY > window.innerHeight * TO_TOP_AFTER_SCREENS);
+  }
+}
+
+window.addEventListener("scroll", function () {
+  if (!toTopQueued) {
+    toTopQueued = true;
+    requestAnimationFrame(updateToTop);
+  }
+}, { passive: true });
+document.addEventListener("htmx:after:settle", updateToTop);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", updateToTop);
+} else {
+  updateToTop();
+}
+
+document.addEventListener("click", function (event) {
+  var link = event.target.closest && event.target.closest(".to-top");
+  if (!link) {
+    return;
+  }
+  event.preventDefault();
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  var title = document.querySelector(".content__header h1");
+  if (title) {
+    title.setAttribute("tabindex", "-1");
+    title.focus({ preventScroll: true });
+  }
+});
