@@ -1,0 +1,29 @@
+{{- /* A table of contents for long posts, built from the page's headings:
+
+         {{< toc >}}
+
+       Put it after the first paragraph. It lists the H2 headings, with each
+       one's H3 headings on a compact line underneath. Options:
+
+         depth="2"           list H2 headings only (default "3")
+         skip="references"   heading ID to leave out (default "references",
+                             the footnotes heading); skip="" keeps them all
+
+       The links are #fragment links, which htmx leaves alone. The Markdown
+       version is toc.markdown.md. */ -}}
+{{- $depth := .Get "depth" | default "3" | int -}}
+{{- $skip := .Get "skip" | default "references" -}}
+{{- $list := .Page.Fragments.ToHTML 2 $depth false | string -}}
+{{- /* Drop Hugo's own <nav id="TableOfContents"> wrapper; ours is below. */ -}}
+{{- $list = replaceRE `(?s)^\s*<nav id="TableOfContents">\s*(.*?)\s*</nav>\s*$` "$1" $list -}}
+{{- with $skip -}}
+  {{- $list = replaceRE (printf `(?s)\s*<li><a href="#%s">[^<]*</a>(\s*<ul>.*?</ul>\s*)?</li>` .) "" $list -}}
+{{- end -}}
+{{- if strings.Contains $list "<li>" -}}
+<nav class="toc" aria-label="Contents">
+  <details open>
+    <summary class="toc__title">Contents</summary>
+    {{ $list | safeHTML }}
+  </details>
+</nav>
+{{- end -}}

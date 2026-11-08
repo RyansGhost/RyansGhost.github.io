@@ -105,6 +105,18 @@ For text readers will paste somewhere else, such as a prompt or a command, use t
 
 `assets/js/site.js` does the copying, with fallbacks, and tells screen readers whether it worked. Without JavaScript the button is hidden and the text can be selected by hand.
 
+## Table of contents
+
+For long posts, add a table of contents after the introduction with the `toc` shortcode:
+
+    {{< toc >}}
+
+It lists the post's H2 headings, each with its H3 headings on one compact line underneath, in a box readers can fold away. Hugo builds it from the headings on every build, so it never needs editing.
+
+- `depth="2"` lists H2 headings only.
+- The References heading is left out. `skip="some-heading-id"` leaves out a different heading instead, and `skip=""` keeps them all.
+- The Markdown copy (`index.md`) gets the same list as Markdown links.
+
 ## Diagrams (Mermaid)
 
 Draw diagrams with a fenced `mermaid` code block, using [Mermaid](https://mermaid.js.org/) syntax:

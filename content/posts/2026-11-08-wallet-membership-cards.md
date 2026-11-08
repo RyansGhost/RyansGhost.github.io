@@ -17,6 +17,8 @@ Imagine an organization that wants every member to carry a digital membership ca
 
 This article explains how such a system works, end to end, from importing the member list to an alert on a phone's lock screen. It's based on a real system, described here in general terms. The design suits any web stack, and its lessons, some of them learned the hard way, apply to anyone building on either wallet. Platform details are checked against Apple's and Google's documentation, linked at the end.
 
+{{< toc >}}
+
 ## System overview and design goals
 
 The system has four kinds of participants: administrators, members, the two wallet platforms, and the card server in the middle.

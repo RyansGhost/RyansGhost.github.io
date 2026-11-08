@@ -24,6 +24,8 @@ It ends with checklists for launching a site, setting up a business, and monthly
 
 The advice draws on two kinds of sources, and the text makes clear which is which. The first is the search engines' own documentation, read in November 2026. The second is industry research: surveys of local search experts and consumers, a Pew Research study of how people click, and academic work on generative search. The two don't always agree. Much of the SEO advice online is guesswork, and Google now publishes a page on how to evaluate third-party advice.[^third-party] Every Hugo snippet below was built and tested with Hugo 0.154.
 
+{{< toc >}}
+
 ## The short version
 
 - **Verify the site in Google Search Console and Bing Webmaster Tools, and submit the sitemap to both.** Bing's index also feeds Copilot and, according to Microsoft, Yahoo, DuckDuckGo and ChatGPT.[^bing-start]
