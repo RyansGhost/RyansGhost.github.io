@@ -106,12 +106,10 @@ Since Emacs 29, `ert-x` also provides `ert-with-temp-file` and `ert-with-temp-di
 
 "Each test should leave its environment in the same state it found it in."[^ert-env] The ERT manual recommends specific tools for this:
 
-| Problem | Use | In rcf-sword |
-| :- | :- | :- |
-| Code changes the current buffer | `with-temp-buffer` | Every insertion test |
-| Code changes windows | `save-window-excursion` | The reader, search and translation tests |
-| Behaviour depends on a setting | `let`-bind the variable | `(let ((rcf-sword-md-link-reference t)) ...)` |
-| Anything else must be undone | `unwind-protect` | Fixtures; killing reader buffers |
+- **Code changes the current buffer:** use `with-temp-buffer`. Every insertion test in rcf-sword does.
+- **Code changes windows:** use `save-window-excursion`, as rcf-sword's reader, search and translation tests do.
+- **Behaviour depends on a setting:** `let`-bind the variable, for example `(let ((rcf-sword-md-link-reference t)) ...)`.
+- **Anything else must be undone:** use `unwind-protect`. rcf-sword's fixtures use it, and so does the code that kills reader buffers.
 
 Avoid heavily customisable commands like `find-file` in tests. Use `with-temp-buffer` and call the major mode directly, as in `(with-temp-buffer (org-mode) ...)`.[^ert-env]
 
@@ -333,11 +331,9 @@ emacs -Q --batch -L . -L test -l rcf-sword-test \
 
 Useful output controls, all from the manual's batch section:[^ert-batch]
 
-| Want | Use |
-| :- | :- |
-| Only failures and the summary | `(let ((ert-quiet t)) (ert-run-tests-batch-and-exit))` |
-| Bigger printed values in failures | Bind `ert-batch-print-level` and `ert-batch-print-length` |
-| A JUnit XML report (Emacs 29+) | Set the `EMACS_TEST_JUNIT_REPORT` environment variable |
+- **Only failures and the summary:** `(let ((ert-quiet t)) (ert-run-tests-batch-and-exit))`.
+- **Bigger printed values in failures:** bind `ert-batch-print-level` and `ert-batch-print-length`.
+- **A JUnit XML report (Emacs 29+):** set the `EMACS_TEST_JUNIT_REPORT` environment variable.
 
 With the JUnit variable set, ERT writes one report per test file, next to it. For rcf-sword that's `test/rcf-sword-test.xml`, which CI systems can display:[^news29][^ert-junit]
 
@@ -349,12 +345,10 @@ With the JUnit variable set, ERT writes one report per test file, next to it. Fo
 
 A Makefile is the smallest dependable runner. rcf-sword's has `compile`, `checkdoc`, `lint` and `test` targets, and installs development dependencies into a private `./.elpa`, never your own `~/.emacs.d`. When you want more, several tools build on ERT:
 
-| Tool | Author | What it gives you |
-| :- | :- | :- |
-| [Cask](https://github.com/cask/cask) | Johan Andersson, with Sebastian Wiesner and Takafumi Arakaki[^cask-src] | Development dependencies. It now recommends `cask emacs --batch ... -f ert-run-tests-batch`, and no longer recommends `cask exec ert-runner`.[^cask] |
-| [Eldev](https://github.com/emacs-eldev/eldev) | Paul Pogonyshev[^eldev] | An Emacs-based build tool. `eldev test` runs ERT, Buttercup, Doctest and Ecukes.[^eldev-doc] |
-| [Eask](https://github.com/emacs-eask/cli) | Jen-Chieh Shen[^eask] | A CLI with `eask test ert`, `eask compile` and a ready-made GitHub Actions setup.[^eask-gha] |
-| [makem.sh](https://github.com/alphapapa/makem.sh) | Adam Porter | One script that "helps to build, lint, and test Emacs Lisp packages", optionally in a sandbox.[^makem] |
+- **[Cask](https://github.com/cask/cask),** by Johan Andersson, with Sebastian Wiesner and Takafumi Arakaki:[^cask-src] development dependencies. It now recommends `cask emacs --batch ... -f ert-run-tests-batch`, and no longer recommends `cask exec ert-runner`.[^cask]
+- **[Eldev](https://github.com/emacs-eldev/eldev),** by Paul Pogonyshev:[^eldev] an Emacs-based build tool. `eldev test` runs ERT, Buttercup, Doctest and Ecukes.[^eldev-doc]
+- **[Eask](https://github.com/emacs-eask/cli),** by Jen-Chieh Shen:[^eask] a CLI with `eask test ert`, `eask compile` and a ready-made GitHub Actions setup.[^eask-gha]
+- **[makem.sh](https://github.com/alphapapa/makem.sh),** by Adam Porter: one script that "helps to build, lint, and test Emacs Lisp packages", optionally in a sandbox.[^makem]
 
 [Buttercup](https://github.com/jorgenschaefer/emacs-buttercup), by Jorgen Schäfer and Ola Nilsson, is an alternative framework with Jasmine-style `describe`/`it` blocks.[^buttercup] [undercover.el](https://github.com/undercover-el/undercover.el) adds coverage reports, for code that isn't byte-compiled.[^undercover]
 
