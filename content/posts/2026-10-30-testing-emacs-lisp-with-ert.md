@@ -15,6 +15,8 @@ tags:
 
 This manual covers what you need to write excellent unit tests for Emacs Lisp, and a CI pipeline that catches problems before your users do. Its running example is [RyansGhost/rcf-sword](https://github.com/RyansGhost/rcf-sword) 0.3.0 (commit [`3b42ff2`](https://github.com/RyansGhost/rcf-sword/commit/3b42ff236bc7ca538be78789d044e635460f168c)). That's a package with 53 ERT tests and a three-job GitHub Actions workflow. Every command and every piece of output below was run for real on GNU Emacs 29.3, and claims about tools are footnoted.
 
+{{< toc >}}
+
 ## ERT in one minute
 
 ERT, *Emacs Lisp Regression Testing*, was written by Christian Ohler and has shipped with Emacs since Emacs 24.[^ert-src][^wellons] "Tests are simply Lisp code: code that invokes other code and checks whether it behaves as expected."[^ert-intro] You define a test with `ert-deftest`, and check results with three macros:

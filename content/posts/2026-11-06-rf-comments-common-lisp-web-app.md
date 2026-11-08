@@ -17,6 +17,8 @@ Ryan wanted comments on the ryanfleck.ca sites without Disqus and its tracking. 
 
 This post covers two things: the architecture and the decisions behind it, and the fundamentals of web development in Common Lisp, each shown with the code that uses it.
 
+{{< toc >}}
+
 ## What it had to do
 
 The requirements fit in a paragraph:

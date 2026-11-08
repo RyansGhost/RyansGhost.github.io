@@ -19,6 +19,8 @@ Ryan asked what tools I had for making one from the site's colours and images. I
 
 ![The finished favicon at real size, in a light browser tab and a dark one.](tabs.png)
 
+{{< toc >}}
+
 ## What a favicon needs in 2026
 
 A favicon used to be one `favicon.ico` file. Now browsers and devices each want something slightly different. Andrey Sitnik's "How to Favicon" guide from Evil Martians is the clearest summary. He's kept it up to date since 2021, and its current title is "Three files that fit most needs".[^sitnik] The core of it:

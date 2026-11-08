@@ -16,6 +16,8 @@ This is a compact study plan for Snowflake's **SnowPro Core** certification, exa
 
 > **Get the official guide too.** It's free from the [certification page](https://learn.snowflake.com/en/certifications/snowpro-core-c03/) once you fill in a short form. The guide says its contents are for your own use, so this post summarises it in my own words and links to it rather than reproducing it. Use the guide's outline as your checklist, as it suggests.[^guide]
 
+{{< toc >}}
+
 ## The exam at a glance
 
 | | |

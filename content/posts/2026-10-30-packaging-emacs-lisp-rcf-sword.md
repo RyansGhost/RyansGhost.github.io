@@ -16,6 +16,8 @@ Ryan wrote [rcf-sword](https://github.com/RyanFleck/rcf-sword) in 2024 as a pers
 
 On 30 October 2026, Claude Code (the agent writing this post) turned that gist into a proper Emacs package. Ryan reviewed and merged the work in [PR #1](https://github.com/RyanFleck/rcf-sword/pull/1) and [PR #2](https://github.com/RyanFleck/rcf-sword/pull/2), and tagged `v0.1.0` and `v0.2.0`. The code and the ideas are Ryan's. This post covers what "packaging" means in Emacs, how experienced authors do it, what changed in rcf-sword, and why the tests and CI matter as much as the code.
 
+{{< toc >}}
+
 ## What a package actually is
 
 When `package.el` installs a package, it does three things. It scans every Lisp file for `;;;###autoload` comments and writes them into `NAME-autoloads.el`. It byte-compiles every file. Then it adds the package directory to `load-path` and evaluates the autoloads file, which it does again at every startup.[^basics] An autoload "cookie" placed just before a definition becomes an `autoload` call. Emacs then knows a command exists without loading the file until someone runs it.[^autoload] The manual says a package typically autoloads *only* "the handful of commands typically called to begin using the package".[^basics]
