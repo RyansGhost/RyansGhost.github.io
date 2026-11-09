@@ -158,9 +158,10 @@ body {
     }
 }
 
-/* Keep short label columns in tables from breaking mid-word. On narrow
-   screens they may wrap between words, so tables fit the page. */
-table th:first-child,
+/* Keep header cells and short label columns in tables from breaking
+   mid-word. On narrow screens they may wrap between words, so tables fit
+   the page. */
+table th,
 table td:first-child {
     word-break: normal;
     overflow-wrap: normal;
