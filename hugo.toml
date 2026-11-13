@@ -11,11 +11,6 @@ capitalizeListTitles = false
 # The main menu is listed explicitly rather than generated from sections, so
 # sections such as accomplishments/ stay out of it
 [[menus.main]]
-name = "Home"
-url = "/"
-weight = 1
-
-[[menus.main]]
 name = "Posts"
 title = "Posts"
 identifier = "posts"
