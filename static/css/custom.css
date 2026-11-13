@@ -223,8 +223,27 @@ sup:has(> .footnote-ref) {
     font-size: 0.875rem;
 }
 
-/* Main menu: draw the "./" prefix inside each item instead of as a list
-   marker, so it can't wrap onto a different line from its link */
+/* Main menu (layouts/_partials/header.html). The logo and the list of
+   links sit side by side on wide screens, and the list wraps under the
+   logo when it doesn't fit. */
+.main-nav {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 0.5rem 2rem;
+}
+
+.main-nav .page__logo {
+    flex: none;
+    text-transform: lowercase;
+}
+
+.main-nav .main-nav__list {
+    flex: 1 1 auto;
+}
+
+/* Draw the "./" prefix inside each item instead of as a list marker, so it
+   can't wrap onto a different line from its link */
 .main-nav li.main-nav__item::marker {
     content: none;
 }
@@ -236,6 +255,70 @@ sup:has(> .footnote-ref) {
 .main-nav li.main-nav__item::before {
     content: "./";
     color: var(--muted);
+}
+
+/* Arrow after links that leave the site, such as GitHub */
+.main-nav__external {
+    width: 0.625rem;
+    height: 0.625rem;
+    margin-left: 0.25rem;
+}
+
+/* Phones and narrow windows (the same breakpoint where the sidebar moves
+   under the content): the logo gets its own line, and the links share one
+   evenly spaced row between two rules, each tall enough to tap easily. The
+   current page is underlined in the logo's colour. */
+@media (max-width: 44.99rem) {
+    .main-nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .main-nav .page__logo {
+        align-self: flex-start;
+    }
+
+    .main-nav .main-nav__list {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 0;
+        border-top: 1px solid var(--inner-bg);
+        border-bottom: 1px solid var(--inner-bg);
+    }
+
+    .main-nav .main-nav__item a {
+        display: block;
+        padding: 0.625rem 0.25rem;
+        text-decoration: none;
+    }
+
+    .main-nav .main-nav__item a.active {
+        box-shadow: inset 0 -2px 0 var(--logo);
+    }
+
+    /* The "./" prefixes only fit on the wider of these screens */
+    .main-nav li.main-nav__item::before {
+        content: none;
+    }
+}
+
+/* The smallest phones: slightly smaller links, so they stay apart */
+@media (max-width: 22.5rem) {
+    .main-nav .main-nav__list {
+        font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 30rem) and (max-width: 44.99rem) {
+    .main-nav li.main-nav__item {
+        display: flex;
+        align-items: center;
+    }
+
+    .main-nav li.main-nav__item::before {
+        content: "./";
+    }
 }
 
 /* Accomplishments listed on the About page */

@@ -1,0 +1,20 @@
+{{- /* Based on risotto's header. Changes: the logo sits before the list
+       rather than inside it, so the links can form their own row on
+       phones; the current page's link gets aria-current; and menu entries
+       with params.external = true (set in hugo.toml) get rel="me" and an
+       arrow showing they leave the site. Styles: static/css/custom.css. */ -}}
+<nav class="page__nav main-nav" aria-label="Main">
+    <h1 class="page__logo"><a href="{{ .Site.BaseURL }}" class="page__logo-inner">{{ .Site.Title }}</a></h1>
+    {{- $currentPage := . }}
+    <ul class="main-nav__list">
+    {{- range .Site.Menus.main }}
+        {{- $external := .Params.external }}
+        {{- $active := and (not $external) (or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.Permalink (.URL | absLangURL))) }}
+        <li class="main-nav__item"><a class="nav-main-item{{ if $active }} active{{ end }}" href="{{ .URL | absLangURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $active }} aria-current="page"{{ end }}{{ if $external }} rel="me"{{ end }}>{{ .Name }}
+            {{- if $external -}}
+            <svg class="main-nav__external" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4 2h6v6M10 2 3 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {{- end -}}
+        </a></li>
+    {{- end }}
+    </ul>
+</nav>
